@@ -1,0 +1,31 @@
+{
+  "name": "testbotty",
+  "version": "0.1.0",
+  "description": "PeaBotty's testing counterpart",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "P1M5",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "google-it": "^1.6.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/P1M5/discord-testBotty.git"
+  },
+  "keywords": [
+    "bot",
+    "testing",
+    "discord",
+    "bot",
+    "peabotty"
+  ],
+  "bugs": {
+    "url": "https://github.com/P1M5/discord-testBotty/issues"
+  },
+  "homepage": "https://github.com/P1M5/discord-testBotty#readme"
+}
