@@ -7,7 +7,7 @@ module.exports = {
 
     const servers = message.client.guilds.cache;
     const membersNum = servers.reduce((x, y) => x + y.memberCount, 0);
-    message.client.user.setActivity(`over ${servers.size} servers and ${membersNum} members`, {type: "WATCHING"});
+    message.client.user.setActivity(`over ${servers.size} server/s and ${membersNum} member/s`, {type: "WATCHING"});
 
         if(!message.content.startsWith(config.prefix) && !message.mentions.has(message.client.user.id) && !message.content.startsWith("<@") || message.author.bot) return;
 

@@ -27,13 +27,13 @@ module.exports = {
             .setTitle("About")
             .setColor("DARK_BLUE")
             .addFields(
-                {name: "Serving:", value: `${servers.size} servers and ${membersNum} members`},
+                {name: "Serving:", value: `${servers.size} server/s and ${membersNum} member/s`},
                 {name: "Bot version:", value: botVersion},
                 {name: "Discord.js version:", value: version},
                 {name: "Memory Usage:", value: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100} MB`},
                 {name: "Uptime:", value: `Uptime is ${days} d, ${hours} h, ${minutes} m and ${seconds} s`},
                 {name: "Ping:", value: `${message.client.ws.ping} ms`},
-                {name: "Birthday:", value: `${dateCreated.toLocaleString("en-GB", optionsD)} (${dateDifMon} months ago)`},
+                {name: "Birthday:", value: `${dateCreated.toLocaleString("en-GB", optionsD)} (${dateDifMon} month/s ago)`},
             )
             .setThumbnail(message.client.user.displayAvatarURL())
             .setTimestamp()
