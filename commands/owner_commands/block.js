@@ -4,6 +4,8 @@ module.exports = {
     aliases: ["denyaccess"],
     category: "Owner",
     usage: "[server <server id><reason><duration (defaults to indefinite)],[user <user id><reason><duration (defaults to indefinite)],[server providereason <server id>],[user providereason <user id>]",
+    args: true,
+    ownerOnly: true,
     execute (message, args) {
 
     },

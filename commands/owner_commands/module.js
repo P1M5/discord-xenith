@@ -4,6 +4,8 @@ module.exports = {
     aliases: ["category"],
     category: "Owner",
     usage: "[enable <module name>],[disable <module name>]",
+    args: true,
+    ownerOnly: true,
     execute (message, args) {
 
     },

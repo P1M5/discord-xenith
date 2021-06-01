@@ -4,6 +4,6 @@ module.exports = {
     category: "Social",
     usage: "<user id,username or mention>",
     execute (message, args) {
-
+       
     },
   }

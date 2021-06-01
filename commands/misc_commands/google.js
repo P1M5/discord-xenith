@@ -6,6 +6,7 @@ module.exports = {
     aliases: ["search"],
     category: "Miscellaneous",
     usage: "<search text>",
+    args: true,
     execute (message, args) {
       const embedInit = new MessageEmbed()
       .setTitle("Loading...")
@@ -19,7 +20,7 @@ module.exports = {
          const firstEl = await searchRes.slice(0,3);
          const embed = new MessageEmbed()
          .setTitle("Google Search")
-         .setColor("DARK_BLUE")
+         .setColor("DARK_GREEN")
          .addFields(
            {name: "\u200B",value: "\u200B"},
            {name: `1. ${firstEl[0].title}`,value: "\u200B"},

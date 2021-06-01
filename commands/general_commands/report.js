@@ -4,6 +4,7 @@ module.exports = {
     aliases: ["suggest","bug"],
     category: "General",
     usage: "<more information for example user id,reason,description of the bug/how to replicate and etc.>",
+    args: true,
     execute (message, args) {
 
     },

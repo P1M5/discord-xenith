@@ -1,5 +1,6 @@
 const { MessageEmbed, version, versionName } = require("discord.js");
-const botVersion = require("/mnt/0849b5ba-151d-421f-86c8-ded2b93a54bf/P1M5/Programming Resources/Discord/PeaBotty/package.json").version;
+const botVersion = require("../.././package.json").version;
+
 module.exports = {
     name: "botinfo",
     description: "Info about the bot",

@@ -3,6 +3,7 @@ module.exports = {
     description: "Talk to Open AI",
     aliases: ["openai"],
     category: "AI",
+    args: true,
     execute (message, args) {
 
     },

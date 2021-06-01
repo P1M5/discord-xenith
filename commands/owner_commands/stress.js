@@ -4,6 +4,8 @@ module.exports = {
     aliases: ["pushtothelimit","fuckup"],
     category: "Owner",
     usage: "<Start matrix>,[stop]",
+    args: true,
+    ownerOnly: true,
     execute (message, args) {
 
     },

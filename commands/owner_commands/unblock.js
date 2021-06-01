@@ -4,6 +4,8 @@ module.exports = {
     aliases: ["restoreaccess"],
     category: "Owner",
     usage: "[server <server id>],[user <user id>]",
+    args: true,
+    ownerOnly: true,
     execute (message, args) {
 
     },

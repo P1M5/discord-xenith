@@ -1,5 +1,6 @@
-const config = require("/mnt/0849b5ba-151d-421f-86c8-ded2b93a54bf/P1M5/Programming Resources/Discord/PeaBotty/package.json");
+const config = require("../.././config.json");
 const { MessageEmbed } = require("discord.js");
+
 module.exports = {
     name: "help",
     description: "Displays all commands or gives information about a specific command",
@@ -41,12 +42,14 @@ module.exports = {
         if (command.ownerOnly && message.author.id !== config.owner_id) return;
         const embed = new MessageEmbed()
             .setTitle(command.name)
+            .setColor("DARK_BLUE")
             if(command.aliases) embed.addField("Aliases:", command.aliases.join(", "));
             if(command.description) embed.addField("Description:", command.description);
             if(command.usage) embed.addField("Usage:", command.usage);
             if(command.cooldown) embed.addField("Cooldown:", `${command.cooldown} seconds`);
             if(command.guildOnly) embed.addField("Guild Only:", command.guildOnly.toString()[0].toUpperCase() + command.guildOnly.toString().substr(1));
             if(command.dmOnly) embed.addField("DM Only:", command.dmOnly.toString()[0].toUpperCase() + command.dmOnly.toString().substr(1));
+            if(command.args) embed.addField("Required arguments:", command.args.toString()[0].toUpperCase() + command.args.toString().substr(1));
             embed.setTimestamp()
         message.channel.send(embed);
 

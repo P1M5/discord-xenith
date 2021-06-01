@@ -4,6 +4,7 @@ module.exports = {
     aliases: ["wedding"],
     category: "Social",
     usage: "[marry <user id,username or mention>],[divorce <user id,username or mention>][list]",
+    args: true,
     execute (message, args) {
 
     },

@@ -4,6 +4,7 @@ module.exports = {
     aliases: ["music"],
     category: "Miscellaneous",
     usage: "<song name>,[lyrics <song name>]",
+    args: true,
     execute (message, args) {
 
     },

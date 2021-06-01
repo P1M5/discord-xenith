@@ -4,6 +4,7 @@ module.exports = {
     aliases: ["remindme"],
     category: "Miscellaneous",
     usage: "<text><amount of time>",
+    args: true,
     execute (message, args) {
 
     },

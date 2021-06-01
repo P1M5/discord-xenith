@@ -4,6 +4,7 @@ module.exports = {
     aliases: ["countdown"],
     category: "Miscellaneous",
     usage: "<amount of time>",
+    args: true,
     execute (message, args) {
 
     },
