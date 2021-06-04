@@ -20,7 +20,7 @@ module.exports = {
          const firstEl = await searchRes.slice(0,3);
          const embed = new MessageEmbed()
          .setTitle("Google Search")
-         .setColor("DARK_GREEN")
+         .setColor("DARK_BLUE")
          .addFields(
            {name: "\u200B",value: "\u200B"},
            {name: `1. ${firstEl[0].title}`,value: "\u200B"},

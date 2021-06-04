@@ -1,5 +1,5 @@
 const { MessageEmbed, version, versionName } = require("discord.js");
-const botVersion = require("../.././package.json").version;
+const { bot_version } = require("../.././config.json");
 
 module.exports = {
     name: "botinfo",
@@ -28,7 +28,7 @@ module.exports = {
             .setColor("DARK_BLUE")
             .addFields(
                 {name: "Serving:", value: `${servers.size} server/s and ${membersNum} member/s`},
-                {name: "Bot version:", value: botVersion},
+                {name: "Bot version:", value: bot_version},
                 {name: "Discord.js version:", value: version},
                 {name: "Memory Usage:", value: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100} MB`},
                 {name: "Uptime:", value: `Uptime is ${days} d, ${hours} h, ${minutes} m and ${seconds} s`},
