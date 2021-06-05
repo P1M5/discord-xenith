@@ -11,12 +11,10 @@ module.exports = {
 
         if(!message.content.startsWith(config.prefix) && !message.mentions.has(message.client.user.id) && !message.content.startsWith("<@") || message.author.bot) return;
 
+        let args = message.content.slice(config.prefix.length).trim().split(/ +/);
         if(message.mentions.has(message.client.user.id)) {
-           global.args = message.content.slice(message.client.user.id.length + 4).trim().split(/ +/);
-      } else {
-           global.args = message.content.slice(config.prefix.length).trim().split(/ +/);
-              };
-
+           args = message.content.slice(message.client.user.id.length + 4).trim().split(/ +/);
+       }
         const commandName = args.shift().toLowerCase();
         const command = message.client.commands.get(commandName)
             || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -63,5 +61,6 @@ module.exports = {
             console.error(error);
             message.reply(`There was an error executing the command \`${command}\`, please contact the developer if the error persists.`);
         }
-  }
+
+  },
 }
