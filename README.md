@@ -1,6 +1,12 @@
 # Testing instance of PeaBotty for Discord
 
-Please edit the [config file](https://github.com/P1M5/discord-testBotty/blob/main/config.json) before trying to run the bot
+## Config file
+
+The original config file has been replaced due to sensitive information
+
+### BOT_TOKEN - the discord bot token
+### owner_id - the id of the owner
+### prefix - the prefix for each command
 
 ## Invite
 
