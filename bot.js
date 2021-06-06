@@ -1,31 +1,52 @@
 const { Client, Intents, Collection } = require("discord.js");
 const { BOT_TOKEN } = require("./config.json");
-const fs = require("fs");
+const fileutils = require("./utils/fileutils.js");
 
-const botIntents = new Intents(Intents.NON_PRIVILEGED);
-const client = new Client({ ws: { intents: [ botIntents, "GUILD_MEMBERS"] } });
 
-const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
+class Setup {
 
-client.commands = new Collection();
-client.cooldowns = new Collection();
-const commandFolders = fs.readdirSync("./commands");
+    #client;
 
-for (const folder of commandFolders) {
-    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
-    for (const file of commandFiles) {
-        const command = require(`./commands/${folder}/${file}`);
-        client.commands.set(command.name, command);
+    constructor(){
+        const botIntents = new Intents(Intents.NON_PRIVILEGED);
+
+        this.#client = new Client({ ws: { intents: [ botIntents, "GUILD_MEMBERS"] } });
+        this.#client.commands = new Collection();
+        this.#client.cooldowns = new Collection();
+
+        this.initCommands();
+        this.initEventListeners();
+        this.#client.login(BOT_TOKEN);
     }
+
+
+    initCommands(){
+        const paths = fileutils.filePaths("./commands").filter(file => file.endsWith(".js"));
+
+        for (const path of paths) {
+            const command = require(path);
+            this.#client.commands.set(command.name, command);
+        }
+
+    }
+
+
+    initEventListeners(){
+        const eventPaths = fileutils.filePaths("./events").filter(file => file.endsWith(".js"));
+
+        for (const path of eventPaths) {
+            const event = require(path);
+            this.#client.on(event.name, (...args) => event.execute(...args, this.#client));
+        }
+    }
+
+    get getClient() {
+        return this.#client();
+    }
+
 }
 
-for (const file of eventFiles) {
-  const event = require(`./events/${file}`);
-  if(event.once) {
-    client.once(event.name, (...args) => event.execute(...args, client));
-  } else {
-    client.on(event.name, (...args) => event.execute(...args, client));
-  }
-}
 
-client.login(BOT_TOKEN);
+
+
+initialization = new Setup()
