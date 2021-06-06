@@ -1,4 +1,4 @@
-# Testing instance of PeaBotty for Discord
+<h1>Project P</h1>(eaBotty)
 
 ## Config file
 
