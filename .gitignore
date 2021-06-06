@@ -4,7 +4,6 @@ config.json
 node_modules/
 # Editors
 .idea/
-.eslintrc.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
