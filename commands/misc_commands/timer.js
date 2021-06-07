@@ -1,7 +1,7 @@
 module.exports = {
     name: "timer",
     description: "Set a timer up to 24h",
-    aliases: ["countdown"],
+    aliases: new Set(["countdown"]),
     category: "Miscellaneous",
     usage: "<amount of time>",
     args: true,

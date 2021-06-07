@@ -4,7 +4,7 @@ module.exports = {
     args: true,
     usage: "[guild id]",
     ownerOnly: true,
-    aliases: ["guildleave","gleave","leaveg","serverleave","leaveserver","lg"],
+    aliases: new Set(["guildleave","gleave","leaveg","serverleave","leaveserver","lg"]),
     category: "Owner",
     execute (message, args) {
         message.client.guilds.fetch(args, false)

@@ -1,7 +1,7 @@
 module.exports = {
-    name: "oai",
+    name: "openai",
     description: "Talk to Open AI",
-    aliases: ["openai"],
+    aliases: new Set(["oai"]),
     category: "AI",
     args: true,
     execute (message, args) {

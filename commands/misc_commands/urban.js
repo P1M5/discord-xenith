@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: "urban",
     description: "Gives the urban dictionary definition",
-    aliases: ["ud"],
+    aliases: new Set(["ud"]),
     category: "Miscellaneous",
     usage: "<definition to search for><number of definition (optional, between 0 and 9 where 0 is the top definition)>,[wotd <number of definition (optional)>]",
     execute (message, args) {

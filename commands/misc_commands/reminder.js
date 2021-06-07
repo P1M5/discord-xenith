@@ -1,7 +1,7 @@
 module.exports = {
     name: "reminder",
     description: "Sets a reminder",
-    aliases: ["remindme"],
+    aliases: new Set(["remindme"]),
     category: "Miscellaneous",
     usage: "<text><amount of time>",
     args: true,

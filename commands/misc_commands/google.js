@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: "google",
     description: "Search google for something",
-    aliases: ["search"],
+    aliases: new Set(["search"]),
     category: "Miscellaneous",
     usage: "<search text>",
     args: true,

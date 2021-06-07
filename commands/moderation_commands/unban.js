@@ -1,7 +1,7 @@
 module.exports = {
     name: "unban",
     description: "Unban a user",
-    aliases: ["unhammer"],
+    aliases: new Set(["unhammer"]),
     category: "Moderation",
     usage: "<user id>",
     args: true,

@@ -4,7 +4,7 @@ const { bot_version } = require("../.././config.json");
 module.exports = {
     name: "botinfo",
     description: "Info about the bot",
-    aliases: ["about","bi","bot"],
+    aliases: new Set(["about","bi","bot"]),
     category: "General",
     execute (message) {
         let seconds = message.client.uptime/1000;

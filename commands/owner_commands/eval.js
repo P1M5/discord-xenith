@@ -1,6 +1,6 @@
 module.exports = {
     name: "eval",
-    aliases: ["run","evaluate"],
+    aliases: new Set(["run","evaluate"]),
     description: "Executes javascript code and returns result",
     category: "Owner",
     usage: "<code>",

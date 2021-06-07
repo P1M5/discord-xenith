@@ -40,6 +40,7 @@ class Setup {
         }
     }
 
+
     get getClient() {
         return this.#client();
     }
