@@ -18,24 +18,11 @@ class Message {
             || client.commands.find(cmd => cmd.aliases && cmd.aliases.has(commandName));
         if(!command) return;
 
-        if (!this.cooldownCheck(message, client, command)) return;
+        if (message.author.id != config.owner_id &&                // Skip the cooldown check completely for the owner instead
+            !this.cooldownCheck(message, command)) return; // of adding it to the collection like before.
 
-        if(command.ownerOnly && message.author.id !== config.owner_id) return;
-
-        if(command.args && !args.length) { // change so the commands handle the args
-            let reply = "You didn't provide any arguments";
-            reply += ` \`Usage: ${command.usage}\``;
-            return message.reply(reply);
-        }
-
-        if(command.guildOnly && message.channel.type === "dm") {
-            message.channel.send("You can't execute this command in Direct Messages")
-        }
-
-        if(command.dmOnly && message.channel.type !== "dm") {
-            message.channel.send("You can't execute this command outside of Direct Messages")
-        }
-
+        if(!command.checkConditions(message, args > 0, message.author.id == config.owner_id,
+             message.channel.type)) return;
 
         try {
             command.execute(message, args);
@@ -61,25 +48,29 @@ class Message {
         return args;
     }
 
-    static cooldownCheck(message, client, command) {
-        const { cooldowns } = client;
-        if(!cooldowns.has(command.name)) {
-            cooldowns.set(command.name, new Collection());
+    static cooldownCheck(message, command) {
+
+
+        let cooldownToken;
+        const now = Date.now();
+
+        if(!(cooldownToken = command.userCooldownTracker.get(message.author.id))) {
+            const obj = {
+                start: now,
+                commandName: command.name      // Need command.name here because even now 1 collection is handling all the cooldowns. will be changed later
+            }
+            command.userCooldownTracker.set(message.author.id, obj);
+            setTimeout(() => command.userCooldownTracker.delete(message.author.id), command.cooldown);
+            return true;
         }
 
-        const now = Date.now();
-        const timestamps = cooldowns.get(command.name);
-        const cooldownAmount = (command.cooldown || 5) * 1000;
-        if(timestamps.has(message.author.id)) {
-            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-            if(now < expirationTime && message.author.id !== config.owner_id) {
-                const timeLeft = (expirationTime - now) / 1000;
-                message.reply(`You need to wait ${timeLeft.toFixed(1)} s before using the \`${command.name}\` command again`);
-                return false;
-            }
+        const expirationTime = cooldownToken.start + command.cooldown;
+
+        if(cooldownToken.commandName == command.name && now+150 < expirationTime) {   // No need to check owner cooldown here.
+            const timeLeft = (expirationTime - now) / 1000;
+            message.reply(`You need to wait ${timeLeft.toFixed(1)} s before using the \`${command.name}\` command again`);
+            return false;
         }
-        timestamps.set(message.author.id, now);
-        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
         return true;
     }
 

@@ -12,7 +12,6 @@ class Setup {
 
         this.#client = new Client({ ws: { intents: [ botIntents, "GUILD_MEMBERS"] } });
         this.#client.commands = new Collection();
-        this.#client.cooldowns = new Collection();
 
         this.initCommands();
         this.initEventListeners();
