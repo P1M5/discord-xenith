@@ -9,12 +9,9 @@ class Message {
 
         const client = message.client;
         const isMentionTriggered = message.mentions.has(client.user.id)
-        console.log(isMentionTriggered);
         if(message.author.bot || !(message.content.startsWith(config.prefix) || isMentionTriggered)) return;
 
         let args = this.argParser(message, isMentionTriggered, client.user.id);
-
-        console.log(args)
 
         const commandName = args.shift().toLowerCase();
         const command = client.commands.get(commandName)
@@ -58,12 +55,8 @@ class Message {
         let args;
 
         if(isMentionTriggered) {
-            console.log(message.content);
             const regex = new RegExp("<@.?" + botId + ">", "")
-            args = message.content.replace(regex, "")
-            console.log(args);
-            args = args.trim().split(/ +/);
-            console.log(args);
+            args = message.content.replace(regex, " ").trim().split(/ +/);
         } else {
             args = message.content.slice(config.prefix.length).trim().split(/ +/);
         }
