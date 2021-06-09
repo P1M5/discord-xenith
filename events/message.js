@@ -18,27 +18,9 @@ class Message {
             || client.commands.find(cmd => cmd.aliases && cmd.aliases.has(commandName));
         if(!command) return;
 
+        if (!this.cooldownCheck(message, client, command)) return;
+
         if(command.ownerOnly && message.author.id !== config.owner_id) return;
-
-        const { cooldowns } = client;
-        if(!cooldowns.has(command.name)) {
-            cooldowns.set(command.name, new Collection());
-        }
-
-        const now = Date.now();
-        const timestamps = cooldowns.get(command.name);
-        const cooldownAmount = (command.cooldown || 5) * 1000;
-        if(timestamps.has(message.author.id)) {
-            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-            if(now < expirationTime && message.author.id !== config.owner_id) {
-                const timeLeft = (expirationTime - now) / 1000;
-                return message.reply(`You need to wait ${timeLeft.toFixed(1)} s before using the \`${commandName}\` command again`)
-            }
-        }
-        timestamps.set(message.author.id, now);
-        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-
-
 
         if(command.args && !args.length) { // change so the commands handle the args
             let reply = "You didn't provide any arguments";
@@ -77,6 +59,28 @@ class Message {
         }
 
         return args;
+    }
+
+    static cooldownCheck(message, client, command) {
+        const { cooldowns } = client;
+        if(!cooldowns.has(command.name)) {
+            cooldowns.set(command.name, new Collection());
+        }
+
+        const now = Date.now();
+        const timestamps = cooldowns.get(command.name);
+        const cooldownAmount = (command.cooldown || 5) * 1000;
+        if(timestamps.has(message.author.id)) {
+            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+            if(now < expirationTime && message.author.id !== config.owner_id) {
+                const timeLeft = (expirationTime - now) / 1000;
+                message.reply(`You need to wait ${timeLeft.toFixed(1)} s before using the \`${command.name}\` command again`);
+                return false;
+            }
+        }
+        timestamps.set(message.author.id, now);
+        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+        return true;
     }
 
     static memberCountUpdate(client) {

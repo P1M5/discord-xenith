@@ -1,15 +1,16 @@
 const fs = require("fs");
+const { BasicCommand } = require("../.././commands.js");
 
-module.exports = {
-    name: "reload",
-    description: "Reload a command",
-    category: "Owner",
-    args: true,
-    usage: "<command name>",
-    ownerOnly: true,
-    execute (message, args) {
-       const commandName = args[0].toLowerCase();
-       const command = message.client.commands.get(commandName)
+module.exports = class Reload extends BasicCommand {
+    static name = "reload";
+    static description = "Reload a command";
+    static category = "Owner";
+    static args = true;
+    static usage = "<command name>";
+    static ownerOnly = true;
+    static execute (message, args) {
+        const commandName = args[0].toLowerCase();
+        const command = message.client.commands.get(commandName)
            || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
            if(!command) {
@@ -29,5 +30,5 @@ module.exports = {
              console.error(e);
              message.channel.send(`There was an error while trying to reaload the command \`${command.name}\`:\n${error.message}`);
            }
-    },
-  }
+    }
+}

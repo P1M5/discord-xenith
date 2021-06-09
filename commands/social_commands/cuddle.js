@@ -1,11 +1,14 @@
 const { MessageEmbed } = require("discord.js");
+const { BasicCommand } = require("../.././commands.js");
 
-module.exports = {
-	name: "cuddle",
-	description: "Cuddle with someone",
-	category: "Social",
-	usage: "<user id,username or mention>",
-	execute(message, args) {
+module.exports = class Cuddle extends BasicCommand {
+	
+	static name = "cuddle"
+	static description = "Cuddle with someone"
+	static category = "Social"
+	static usage = "<user id,username or mention>"
+
+	static execute(message, args) {
 
 		function getUserFromMention(mention) {
 			if (!mention) return;
@@ -53,5 +56,5 @@ module.exports = {
 			message.channel.send(embed);
 			break;
 		}
-	},
-};
+	}
+}

@@ -1,16 +1,24 @@
 const config = require("../.././config.json");
 const { MessageEmbed } = require("discord.js");
+const { BasicCommand } = require("../.././commands.js");
 
-module.exports = {
-    name: "help",
-    description: "Displays all commands or gives information about a specific command",
-    aliases: new Set(["commands","cmds","?"]),
-    usage: "[command name]",
-    category: "General",
-    execute (message, args) {
+
+module.exports = class Help extends BasicCommand {
+    static name = "help";
+    static description = "Displays all commands or gives information about a specific command";
+    static aliases = new Set(["commands","cmds","?"]);
+    static usage = "[command name]";
+    static category = "General";
+
+    static execute (message, args) {
+
+        console.log("EMBED YA FUCK");
+        console.log(args.length);
+
         const { commands } = message.client;
 
         if (!args.length) {
+            console.log("EMBED YA ARG FUCK");
             commands.filter(Boolean);
             const ai_com = commands.filter(command => command.category === "AI").map(command => command.name).join(", ");
             const card_com = commands.filter(command => command.category === "Cardcord").map(command => command.name).join(", ");
@@ -34,24 +42,27 @@ module.exports = {
                 .setTimestamp()
             return message.channel.send(embed);
         }
+        console.log("EMBED NO WORK YA FUCK");
         const name = args[0].toLowerCase();
         const command = commands.get(name) || commands.find(cmd => cmd.aliases && cmd.aliases.has(name));
         if (!command) {
             return message.reply("That's not a valid command")
         }
+
         if (command.ownerOnly && message.author.id !== config.owner_id) return;
+
         const embed = new MessageEmbed()
-            .setTitle(command.name)
-            .setColor("DARK_BLUE")
-            if(command.aliases) embed.addField("Aliases:", Array.from(command.aliases).join(", "));
-            if(command.description) embed.addField("Description:", command.description);
-            if(command.usage) embed.addField("Usage:", command.usage);
-            if(command.cooldown) embed.addField("Cooldown:", `${command.cooldown} seconds`);
-            if(command.guildOnly) embed.addField("Guild Only:", command.guildOnly.toString()[0].toUpperCase() + command.guildOnly.toString().substr(1));
-            if(command.dmOnly) embed.addField("DM Only:", command.dmOnly.toString()[0].toUpperCase() + command.dmOnly.toString().substr(1));
-            if(command.args) embed.addField("Required arguments:", command.args.toString()[0].toUpperCase() + command.args.toString().substr(1));
+            .setTitle(command.getName())
+            .setColor("DARK_BLUE");
+            (command.getAliases()) && embed.addField("Aliases:", command.getAliases().join(", "));
+            (command.getDescription()) && embed.addField("Description:", command.description);
+            (command.getUsage())  && embed.addField("Usage:", command.usage);
+            (command.getCooldown()) && embed.addField("Cooldown:", `${command.cooldown} seconds`);
+            (command.getGuildOnly()) && embed.addField("Guild Only:", command.guildOnly.toString()[0].toUpperCase() + command.guildOnly.toString().substr(1));
+            (command.getDmOnly()) && embed.addField("DM Only:", command.dmOnly.toString()[0].toUpperCase() + command.dmOnly.toString().substr(1));
+            (command.args) && embed.addField("Required arguments:", command.args.toString()[0].toUpperCase() + command.args.toString().substr(1));
             embed.setTimestamp()
         message.channel.send(embed);
 
-    },
+    }
 }

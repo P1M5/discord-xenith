@@ -1,13 +1,18 @@
 const ud = require("urban-dictionary");
 const { MessageEmbed } = require("discord.js");
+const { BasicCommand } = require("../.././commands.js");
 
-module.exports = {
-    name: "urban",
-    description: "Gives the urban dictionary definition",
-    aliases: new Set(["ud"]),
-    category: "Miscellaneous",
-    usage: "<definition to search for><number of definition (optional, between 0 and 9 where 0 is the top definition)>,[wotd <number of definition (optional)>]",
-    execute (message, args) {
+
+module.exports = class Urban extends BasicCommand {
+    static name = "urban";
+    static description = "Gives the urban dictionary definition";
+    static aliases = new Set(["ud"]);
+    static category = "Miscellaneous";
+    static usage = "<definition to search for><number of definition (optional, between"
+         " 0 and 9 where 0 is the top definition)>,[wotd <number of definition"
+             "(optional)>]";
+
+    static execute (message, args) {
 
       let num = 0;
       let sliceEnd = args.length;
@@ -73,5 +78,5 @@ module.exports = {
         message.channel.send(error.message);
       });
     }
-    },
-  }
+    }
+}

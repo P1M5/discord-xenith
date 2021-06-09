@@ -1,12 +1,15 @@
 const { MessageEmbed, version, versionName } = require("discord.js");
 const { bot_version } = require("../.././config.json");
+const { BasicCommand } = require("../.././commands.js");
 
-module.exports = {
-    name: "botinfo",
-    description: "Info about the bot",
-    aliases: new Set(["about","bi","bot"]),
-    category: "General",
-    execute (message) {
+module.exports = class BotInfo extends BasicCommand {
+
+    static name = "botinfo";
+    static description = "Info about the bot";
+    static aliases = new Set(["about","bi","bot"]);
+    static category = "General";
+
+    static execute (message) {
         let seconds = message.client.uptime/1000;
         let days = Math.floor(seconds/86400);
         seconds %= 86400;
@@ -25,7 +28,7 @@ module.exports = {
         const optionsD = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const embed = new MessageEmbed()
             .setTitle("About")
-            .setColor("DARK_BLUE")
+            .setColor("ORANGE")
             .addFields(
                 {name: "Serving:", value: `${servers.size} server/s and ${membersNum} member/s`},
                 {name: "Bot version:", value: bot_version},
@@ -38,5 +41,5 @@ module.exports = {
             .setThumbnail(message.client.user.displayAvatarURL())
             .setTimestamp()
             message.channel.send(embed);
-    },
+    }
 }
