@@ -12,13 +12,10 @@ module.exports = class Help extends BasicCommand {
 
     static execute (message, args) {
 
-        console.log("EMBED YA FUCK");
-        console.log(args.length);
-
         const { commands } = message.client;
 
         if (!args.length) {
-            console.log("EMBED YA ARG FUCK");
+
             commands.filter(Boolean);
             const ai_com = commands.filter(command => command.category === "AI").map(command => command.name).join(", ");
             const card_com = commands.filter(command => command.category === "Cardcord").map(command => command.name).join(", ");
@@ -42,7 +39,7 @@ module.exports = class Help extends BasicCommand {
                 .setTimestamp()
             return message.channel.send(embed);
         }
-        console.log("EMBED NO WORK YA FUCK");
+
         const name = args[0].toLowerCase();
         const command = commands.get(name) || commands.find(cmd => cmd.aliases && cmd.aliases.has(name));
         if (!command) {
