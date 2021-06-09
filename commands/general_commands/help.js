@@ -35,7 +35,7 @@ module.exports = {
             return message.channel.send(embed);
         }
         const name = args[0].toLowerCase();
-        const command = commands.get(name) || commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
+        const command = commands.get(name) || commands.find(cmd => cmd.aliases && cmd.aliases.has(name));
         if (!command) {
             return message.reply("That's not a valid command")
         }
@@ -43,7 +43,7 @@ module.exports = {
         const embed = new MessageEmbed()
             .setTitle(command.name)
             .setColor("DARK_BLUE")
-            if(command.aliases) embed.addField("Aliases:", command.aliases.join(", "));
+            if(command.aliases) embed.addField("Aliases:", Array.from(command.aliases).join(", "));
             if(command.description) embed.addField("Description:", command.description);
             if(command.usage) embed.addField("Usage:", command.usage);
             if(command.cooldown) embed.addField("Cooldown:", `${command.cooldown} seconds`);

@@ -8,17 +8,13 @@ class Message {
     static execute(message) {
 
         const client = message.client;
-        const mentionMessage = message.mentions.has(client.user.id)
+        const isMentionTriggered = message.mentions.has(client.user.id)
+        console.log(isMentionTriggered);
+        if(message.author.bot || !(message.content.startsWith(config.prefix) || isMentionTriggered)) return;
 
-        if(!message.content.startsWith(config.prefix) && !mentionMessage
-            && message.author.bot) return;
+        let args = this.argParser(message, isMentionTriggered, client.user.id);
 
-        let args;
-        if(mentionMessage) {
-            args = message.content.slice(client.user.id.length + 4).trim().split(/ +/);
-        } else {
-            args = message.content.slice(config.prefix.length).trim().split(/ +/);
-        }
+        console.log(args)
 
         const commandName = args.shift().toLowerCase();
         const command = client.commands.get(commandName)
@@ -31,19 +27,6 @@ class Message {
         if(!cooldowns.has(command.name)) {
             cooldowns.set(command.name, new Collection());
         }
-
-        const now = Date.now();
-        const timestamps = cooldowns.get(command.name);
-        const cooldownAmount = (command.cooldown || 5) * 1000;
-        if(timestamps.has(message.author.id)) {
-            const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-            if(now < expirationTime && message.author.id !== config.owner_id) {
-                const timeLeft = (expirationTime - now) / 1000;
-                return message.reply(`You need to wait ${timeLeft.toFixed(1)} s before using the \`${commandName}\` command again`)
-            }
-        }
-        timestamps.set(message.author.id, now);
-        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
         if(command.args && !args.length) { // change so the commands handle the args
             let reply = "You didn't provide any arguments";
@@ -67,9 +50,28 @@ class Message {
             message.reply(`There was an error executing the command \`${command}\`, please contact the developer if the error persists.`);
         }
 
+        this.memberCountUpdate(client)
+
     }
 
-    static memberCountUpdate() {
+    static argParser(message, isMentionTriggered, botId) {
+        let args;
+
+        if(isMentionTriggered) {
+            console.log(message.content);
+            const regex = new RegExp("<@.?" + botId + ">", "")
+            args = message.content.replace(regex, "")
+            console.log(args);
+            args = args.trim().split(/ +/);
+            console.log(args);
+        } else {
+            args = message.content.slice(config.prefix.length).trim().split(/ +/);
+        }
+
+        return args;
+    }
+
+    static memberCountUpdate(client) {
         const servers = client.guilds.cache;
         const membersNum = servers.reduce((x, y) => x + y.memberCount, 0);
         client.user.setActivity(`over ${servers.size} server/s and ${membersNum} member/s`, {type: "WATCHING"});
