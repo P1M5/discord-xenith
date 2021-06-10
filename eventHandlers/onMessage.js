@@ -9,7 +9,7 @@ class Message {
     static execute(message) {
         const client = message.client;
         const isPrefixTriggered = message.content.startsWith(config.prefix)
-        if(message.author.bot || !(message.content.startsWith(config.prefix) || message.mentions.has(client.user.id))) return;
+        if(message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
 
         let args = this.argParser(message, isPrefixTriggered, client.user.id);
 
