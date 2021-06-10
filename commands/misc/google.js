@@ -1,5 +1,5 @@
 const googleIt = require("google-it");
-const { BasicCommand } = require("../.././commands.js");
+const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 const { MessageEmbed } = require("discord.js");
 
 

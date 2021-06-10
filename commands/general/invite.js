@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { BasicCommand } = require("../.././commands.js");
+const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
 module.exports = class Invite extends BasicCommand {
     static name = "invite";

@@ -1,6 +1,6 @@
-const config = require("../.././config.json");
 const { MessageEmbed } = require("discord.js");
-const { BasicCommand } = require("../.././commands.js");
+const { config } = require("../../config/config.json");
+const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
 
 module.exports = class Help extends BasicCommand {

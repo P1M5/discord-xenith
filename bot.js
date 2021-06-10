@@ -1,5 +1,5 @@
 const { Client, Intents, Collection } = require("discord.js");
-const { BOT_TOKEN } = require("./config.json");
+const { BOT_TOKEN } = require("./config/config.json");
 const fileutils = require("./utils/fileutils.js");
 
 
@@ -31,7 +31,7 @@ class Setup {
 
 
     initEventListeners(){
-        const eventPaths = fileutils.filePaths("./events").filter(file => file.endsWith(".js"));
+        const eventPaths = fileutils.filePaths("./eventHandlers").filter(file => file.endsWith(".js"));
 
         for (const path of eventPaths) {
             const event = require(path);
@@ -46,5 +46,5 @@ class Setup {
 
 }
 
-
+console.log(__dirname);
 initialization = new Setup()
