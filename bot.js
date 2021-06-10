@@ -1,5 +1,6 @@
 const { Client, Intents, Collection } = require("discord.js");
 const { BOT_TOKEN } = require("./config/config.json");
+const debug = require("debug")("DB");
 const fileutils = require("./utils/fileutils.js");
 
 
@@ -12,6 +13,8 @@ class Setup {
 
         this.#client = new Client({ ws: { intents: [ botIntents, "GUILD_MEMBERS"] } });
         this.#client.commands = new Collection();
+
+        debug(this.#client.options.http);
 
         this.initCommands();
         this.initEventListeners();
@@ -37,6 +40,7 @@ class Setup {
             const event = require(path);
             this.#client.on(event.name, (...args) => event.execute(...args, this.#client));
         }
+        debug("events ready");
     }
 
 
@@ -46,5 +50,4 @@ class Setup {
 
 }
 
-console.log(__dirname);
 initialization = new Setup()
