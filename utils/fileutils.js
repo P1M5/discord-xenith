@@ -1,9 +1,18 @@
 const fs = require("fs");
 
+/**
+* @function
+* @description This function takes a starting (root) path and uses `Breadth-First Seach`
+* algorithm to traverse folders until all files are found. The relative file paths
+* from the root path are then returned.
+*
+* @arg {string} initialPath - Path which will be the starting (root) point.
+* @returns {string[]} - Array of all file paths in the root directory (or its subdirectories).
+*/
 function filePaths(initialPath){
 
     const files = [];
-    const folderQueue = [];
+    const folderQueue = []; // Queue for BFS
 
     folderQueue.push(initialPath);
 
