@@ -14,7 +14,7 @@ class Invite extends BasicCommand {
     static description = "Invite command";
     static category = "General";
 
-    static execute (message) {
+    static execute (msgToken) {
         const embed = new MessageEmbed()
             .setTitle("Invite")
             .setColor("DARK_BLUE")
@@ -24,7 +24,7 @@ class Invite extends BasicCommand {
                 {name: "Bot Invite", value: "[Invite the bot](https://discord.com/api/oauth2/authorize?client_id=453517745611341826&permissions=470674551&scope=bot)"},
             )
             .setTimestamp()
-            message.channel.send(embed);
+            msgToken.message.channel.send(embed);
     }
 }
 

@@ -16,9 +16,9 @@ class BasicCommand {
     static userCooldownTracker = new Collection();
     static permissions = [];
 
-    static checkConditions(message, argsExist, isUserOwner, channelType) {
-        return this.checkUserPermissions(message, isUserOwner, channelType)
-            && this.checkArgs(message, argsExist);
+    static checkConditions(msgToken, isUserOwner, channelType) {
+        return this.checkUserPermissions(msgToken.message, isUserOwner, channelType)
+            && this.checkArgs(msgToken);
     }
 
     static checkUserPermissions(message, isUserOwner, channelType) {
@@ -44,11 +44,36 @@ class BasicCommand {
         return ownerVar && typeVar;
     }
 
-    static checkArgs(message, argsExist) {
-        if(this.args && !argsExist) { // change so the commands handle the args
+    static checkArgs(msgToken) {
+        if(this.args && !msgToken.args) { // change so the commands handle the args
             let reply = "You didn't provide any arguments";
             reply += ` \`Usage: ${this.usage}\``;
-            message.reply(reply);
+            msgToken.message.reply(reply);
+            return false;
+        }
+        return true;
+    }
+
+    static checkCooldown(message) {
+
+        let cooldownToken;
+        const now = Date.now();
+
+        if(!(cooldownToken = this.userCooldownTracker.get(message.author.id))) {
+            const obj = {
+                start: now,
+                commandName: this.name      // Need this.name here because even now 1 collection is handling all the cooldowns. will be changed later
+            }
+            this.userCooldownTracker.set(message.author.id, obj);
+            setTimeout(() => this.userCooldownTracker.delete(message.author.id), this.cooldown);
+            return true;
+        }
+
+        const expirationTime = cooldownToken.start + this.cooldown;
+
+        if(cooldownToken.commandName == this.name && now+150 < expirationTime) {   // No need to check owner cooldown here.
+            const timeLeft = (expirationTime - now) / 1000;
+            message.reply(`You need to wait ${timeLeft.toFixed(1)} s before using the \`${this.name}\` command again`);
             return false;
         }
         return true;

@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
-const { config } = require("../../config/config.json");
+const config = require("../../config/config.json");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
+const debug = require("debug")("DB");
 
 
 /**
@@ -17,11 +18,11 @@ class Help extends BasicCommand {
     static usage = "[command name]";
     static category = "General";
 
-    static execute (message, args) {
+    static execute (msgToken) {
+        debug(msgToken);
+        const { commands } = msgToken.message.client;
 
-        const { commands } = message.client;
-
-        if (!args.length) {
+        if (!msgToken.args) {
 
             commands.filter(Boolean);
             const ai_com = commands.filter(command => command.category === "AI").map(command => command.name).join(", ");
@@ -40,14 +41,14 @@ class Help extends BasicCommand {
                 if(gen_com) embed.addField("General Commands", gen_com)
                 if(misc_com) embed.addField("Miscellaneous Commands", misc_com)
                 if(mod_com) embed.addField("Moderation Commands", mod_com)
-                if(owner_com && message.author.id == config.owner_id) embed.addField("Owner Commands", owner_com)
+                if(owner_com && msgToken.message.author.id == config.owner_id) embed.addField("Owner Commands", owner_com)
                 if(social_com) embed.addField("Social Commands", social_com)
-                .setFooter(`To find more about a specific command use ${config.prefix}help <command name> | ${message.client.ws.ping} ms`)
+                .setFooter(`To find more about a specific command use ${config.prefix}help <command name> | ${msgToken.message.client.ws.ping} ms`)
                 .setTimestamp()
-            return message.channel.send(embed);
+            return msgToken.message.channel.send(embed);
         }
 
-        const name = args[0].toLowerCase();
+        const name = msgToken.args.trim().toLowerCase();
         const command = commands.get(name) || commands.find(cmd => cmd.aliases && cmd.aliases.has(name));
         if (!command) {
             return message.reply("That's not a valid command")
@@ -66,7 +67,7 @@ class Help extends BasicCommand {
             (command.getDmOnly()) && embed.addField("DM Only:", command.dmOnly.toString()[0].toUpperCase() + command.dmOnly.toString().substr(1));
             (command.args) && embed.addField("Required arguments:", command.args.toString()[0].toUpperCase() + command.args.toString().substr(1));
             embed.setTimestamp()
-        message.channel.send(embed);
+        msgToken.message.channel.send(embed);
 
     }
 }

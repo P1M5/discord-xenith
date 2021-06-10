@@ -14,8 +14,8 @@ class Ping extends BasicCommand {
     static aliases = new Set(["bing", "helo", "oi"]);
     static category = "General";
 
-    static execute (message) {
-        message.channel.send(`Ping is ${message.client.ws.ping} ms`)
+    static execute (msgToken) {
+        msgToken.message.channel.send(`Ping is ${msgToken.message.client.ws.ping} ms`)
     }
 }
 

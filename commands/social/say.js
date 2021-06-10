@@ -14,8 +14,8 @@ class Say extends BasicCommand {
     static category = "Social";
     static usage = "<text>";
     static args = true;
-    static execute (message, args) {
-      message.channel.send(args.join(" "));
+    static execute (msgToken) {
+      msgToken.message.channel.send(msgToken.args);
     }
   }
 

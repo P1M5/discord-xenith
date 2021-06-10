@@ -1,5 +1,5 @@
 const { Client, Intents, Collection } = require("discord.js");
-const { BOT_TOKEN } = require("./config/config.json");
+const config = require("./config/config.json");
 const debug = require("debug")("DB");
 const fileutils = require("./utils/fileutils.js");
 
@@ -18,7 +18,7 @@ class Setup {
 
         this.initCommands();
         this.initEventListeners();
-        this.#client.login(BOT_TOKEN);
+        this.#client.login(config.BOT_TOKEN);
     }
 
 
@@ -38,8 +38,10 @@ class Setup {
 
         for (const path of eventPaths) {
             const event = require(path);
+
             this.#client.on(event.name, (...args) => event.execute(...args, this.#client));
         }
+
         debug("events ready");
     }
 
