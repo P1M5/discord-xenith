@@ -3,7 +3,14 @@ const { MessageEmbed } = require("discord.js");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
 
-module.exports = class Urban extends BasicCommand {
+/**
+@static
+@description
+@extends BasicCommand
+
+@todo Turn it into an constructor from static
+*/
+class Urban extends BasicCommand {
     static name = "urban";
     static description = "Gives the urban dictionary definition";
     static aliases = new Set(["ud"]);
@@ -80,3 +87,5 @@ module.exports = class Urban extends BasicCommand {
     }
     }
 }
+
+module.exports = Urban;

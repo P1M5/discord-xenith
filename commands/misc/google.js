@@ -3,7 +3,14 @@ const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 const { MessageEmbed } = require("discord.js");
 
 
-module.exports = class Google extends BasicCommand {
+/**
+@static
+@description
+@extends BasicCommand
+
+@todo Turn it into an constructor from static
+*/
+class Google extends BasicCommand {
     static name = "google";
     static description = "Search google for something";
     static aliases = new Set(["search"]);
@@ -96,4 +103,6 @@ module.exports = class Google extends BasicCommand {
         })
         .catch(e => e.message);
         }
-  };
+};
+
+module.exports = Google;

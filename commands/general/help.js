@@ -3,7 +3,14 @@ const { config } = require("../../config/config.json");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
 
-module.exports = class Help extends BasicCommand {
+/**
+@static
+@description
+@extends BasicCommand
+
+@todo Turn it into an constructor from static
+*/
+class Help extends BasicCommand {
     static name = "help";
     static description = "Displays all commands or gives information about a specific command";
     static aliases = new Set(["commands","cmds","?"]);
@@ -63,3 +70,5 @@ module.exports = class Help extends BasicCommand {
 
     }
 }
+
+module.exports = Help;

@@ -1,7 +1,15 @@
 const { MessageEmbed } = require("discord.js");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
-module.exports = class Invite extends BasicCommand {
+
+/**
+@static
+@description
+@extends BasicCommand
+
+@todo Turn it into an constructor from static
+*/
+class Invite extends BasicCommand {
     static name = "invite";
     static description = "Invite command";
     static category = "General";
@@ -19,3 +27,5 @@ module.exports = class Invite extends BasicCommand {
             message.channel.send(embed);
     }
 }
+
+module.exports = Invite;

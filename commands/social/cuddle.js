@@ -1,7 +1,15 @@
 const { MessageEmbed } = require("discord.js");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
-module.exports = class Cuddle extends BasicCommand {
+
+/**
+@static
+@description
+@extends BasicCommand
+
+@todo Turn it into an constructor from static
+*/
+class Cuddle extends BasicCommand {
 
 	static name = "cuddle"
 	static description = "Cuddle with someone"
@@ -58,3 +66,5 @@ module.exports = class Cuddle extends BasicCommand {
 		}
 	}
 }
+
+module.exports = Cuddle;

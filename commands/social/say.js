@@ -1,6 +1,14 @@
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
-module.exports = class Say extends BasicCommand {
+
+/**
+@static
+@description
+@extends BasicCommand
+
+@todo Turn it into an constructor from static
+*/
+class Say extends BasicCommand {
     static name = "say";
     static description = "Make the bot say something";
     static category = "Social";
@@ -10,3 +18,5 @@ module.exports = class Say extends BasicCommand {
       message.channel.send(args.join(" "));
     }
   }
+
+module.exports = Say;

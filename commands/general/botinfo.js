@@ -2,7 +2,15 @@ const { MessageEmbed, version, versionName } = require("discord.js");
 const { bot_version } = require("../../config/config.json");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
-module.exports = class BotInfo extends BasicCommand {
+
+/**
+@static
+@description
+@extends BasicCommand
+
+@todo Turn it into an constructor from static
+*/
+class BotInfo extends BasicCommand {
 
     static name = "botinfo";
     static description = "Info about the bot";
@@ -43,3 +51,5 @@ module.exports = class BotInfo extends BasicCommand {
             message.channel.send(embed);
     }
 }
+
+module.exports = BotInfo;
