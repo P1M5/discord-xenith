@@ -8,11 +8,11 @@ class Message {
 
     static execute(message) {
         const client = message.client;
+
         const isPrefixTriggered = message.content.startsWith(config.prefix)
         if(message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
 
         let args = this.argParser(message, isPrefixTriggered, client.user.id);
-
         const commandName = args.shift().toLowerCase();
 
         const msgToken = {
@@ -26,7 +26,7 @@ class Message {
         if (!command) return;
 
         if (msgToken.message.author.id != config.owner_id &&
-            !command.cooldownCheck(message)) return;
+            !command.checkCooldown(message)) return;
         if(!command.checkConditions(msgToken, msgToken.message.author.id == config.owner_id,
              message.channel.type)) return;
         try {
