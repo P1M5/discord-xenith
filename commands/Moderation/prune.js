@@ -1,10 +1,18 @@
-module.exports = {
-	name: "prune",
-	description: "Prune amount of messages",
-	aliases: new Set(["purge", "clean"]),
-	category: "Moderation",
-	usage: "<amount (defaults to 1)>",
-	execute(message, args) {
+const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
-	},
-};
+
+class Prune extends BasicCommand {
+
+    static name = "prune";
+    static description = "Prune amount of messages";
+    static aliases = new Set(["purge", "clean"]);
+    static category = "Moderation";
+    static usage = "<amount (defaults to 1)>";
+    static args = true;
+
+    static execute(msgToken) {
+
+    }
+}
+
+module.exports = Prune;
