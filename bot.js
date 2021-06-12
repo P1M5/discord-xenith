@@ -1,5 +1,5 @@
 const { Client, Intents, Collection } = require("discord.js");
-const config = require("./config/config.json");
+const { BOT_TOKEN } = require("./config/config.json");
 const debug = require("debug")("DB");
 const fileutils = require("./utils/fileutils.js");
 
@@ -8,48 +8,48 @@ class Setup {
 
     #client;
 
-    constructor(){
-        const botIntents = new Intents(Intents.NON_PRIVILEGED);
+    constructor() {
+    	const botIntents = new Intents(Intents.NON_PRIVILEGED);
 
-        this.#client = new Client({ ws: { intents: [ botIntents, "GUILD_MEMBERS"] } });
-        this.#client.commands = new Collection();
+    	this.#client = new Client({ ws: { intents: [ botIntents, "GUILD_MEMBERS"] } });
+    	this.#client.commands = new Collection();
 
-        debug(this.#client.options.http);
+    	debug(this.#client.options.http);
 
-        this.initCommands();
-        this.initEventListeners();
-        this.#client.login(config.BOT_TOKEN);
+    	this.initCommands();
+    	this.initEventListeners();
+    	this.#client.login(BOT_TOKEN);
     }
 
 
-    initCommands(){
-        const paths = fileutils.filePaths("./commands").filter(file => file.endsWith(".js"));
+    initCommands() {
+    	const paths = fileutils.filePaths("./commands").filter(file => file.endsWith(".js"));
 
-        for (const path of paths) {
-            const command = require(path);
-            this.#client.commands.set(command.name, command);
-        }
+    	for (const path of paths) {
+    		const command = require(path);
+    		this.#client.commands.set(command.name, command);
+    	}
 
     }
 
 
-    initEventListeners(){
-        const eventPaths = fileutils.filePaths("./eventHandlers").filter(file => file.endsWith(".js"));
+    initEventListeners() {
+    	const eventPaths = fileutils.filePaths("./eventHandlers").filter(file => file.endsWith(".js"));
 
-        for (const path of eventPaths) {
-            const event = require(path);
+    	for (const path of eventPaths) {
+    		const event = require(path);
 
-            this.#client.on(event.name, (...args) => event.execute(...args, this.#client));
-        }
+    		this.#client.on(event.name, (...args) => event.execute(...args, this.#client));
+    	}
 
-        debug("events ready");
+    	debug("events ready");
     }
 
 
     get getClient() {
-        return this.#client();
+    	return this.#client();
     }
 
 }
 
-initialization = new Setup()
+new Setup();

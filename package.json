@@ -1,10 +1,10 @@
 {
-  "name": "testbotty",
+  "name": "Margin",
   "version": "0.1.0",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
-  "description": "PeaBotty's testing counterpart",
+  "description": "",
   "main": "./bot.js",
   "scripts": {
     "start": "node ./bot.js",
@@ -21,17 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/P1M5/discord-testBotty.git"
+    "url": "git+https://github.com/P1M5/discord-margin.git"
   },
-  "keywords": [
-    "bot",
-    "testing",
-    "discord",
-    "bot",
-    "peabotty"
-  ],
+  "keywords": [],
   "bugs": {
-    "url": "https://github.com/P1M5/discord-testBotty/issues"
+    "url": "https://github.com/P1M5/discord-margin/issues"
   },
-  "homepage": "https://github.com/P1M5/discord-testBotty#readme"
+  "homepage": "https://github.com/P1M5/discord-margin#readme"
 }

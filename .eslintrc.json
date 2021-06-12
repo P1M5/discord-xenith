@@ -1,11 +1,13 @@
 {
+	"parser": "@babel/eslint-parser",
 	"extends": "eslint:recommended",
 	"env": {
 		"node": true,
 		"es6": true
 	},
 	"parserOptions": {
-		"ecmaVersion": 2019
+		"ecmaVersion": 2019,
+		"requireConfigFile": false
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
@@ -42,6 +44,9 @@
 		"space-infix-ops": "error",
 		"space-unary-ops": "error",
 		"spaced-comment": "error",
-		"yoda": "error"
+		"yoda": "error",
+		"no-mixed-spaces-and-tabs": "off",
+		"no-unexpected-multiline": "off",
+		"no-inline-comments": "off"
 	}
 }

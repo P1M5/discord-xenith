@@ -1,60 +1,61 @@
-const { Collection } = require("discord.js");
-const config = require("../config/config.json");
-const debug = require("debug")("DB");
+const { prefix, owner_id } = require("../config/config.json");
 
 class Message {
 
     static name = "message";
 
     static execute(message) {
-        const client = message.client;
-        const isPrefixTriggered = message.content.startsWith(config.prefix)
-        if(message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
 
-        let args = this.argParser(message, isPrefixTriggered, client.user.id);
+    	const client = message.client;
+    	const isPrefixTriggered = message.content.startsWith(prefix);
+    	if(message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
 
-        const commandName = args.shift().toLowerCase();
+    	const args = this.argParser(message, isPrefixTriggered, client.user.id);
 
-        const msgToken = {
-            message: message,
-            commandName: commandName,
-            args: args.join(" ")
-        }
+    	const commandName = args.shift().toLowerCase();
 
-        const command = client.commands.get(msgToken.commandName)
+    	const msgToken = {
+    		message: message,
+    		commandName: commandName,
+    		args: args.join(" "),
+    	};
+
+    	const command = client.commands.get(msgToken.commandName)
             || client.commands.find(cmd => cmd.aliases && cmd.aliases.has(msgToken.commandName));
-        if (!command) return;
+    	if (!command) return;
 
-        if (msgToken.message.author.id != config.owner_id &&
+    	if (msgToken.message.author.id != owner_id &&
             !command.cooldownCheck(message)) return;
-        if(!command.checkConditions(msgToken, msgToken.message.author.id == config.owner_id,
-             message.channel.type)) return;
-        try {
-            command.execute(msgToken);
-        } catch (error) {
-            console.error(error);
-            message.reply(`There was an error executing the command \`${command}\`, please contact the developer if the error persists.`);
-        }
+    	if(!command.checkConditions(msgToken, msgToken.message.author.id == owner_id,
+    		message.channel.type)) return;
+    	try {
+    		command.execute(msgToken);
+    	}
+    	catch (error) {
+    		console.error(error);
+    		message.reply(`There was an error executing the command \`${command.name}\`, please contact the developer if the error persists.`);
+    	}
 
-        this.memberCountUpdate(client); //Needs to be made async for now
+    	this.memberCountUpdate(client); // Needs to be made async for now
     }
 
     static argParser(message, isMentionTriggered, botId) {
-        let args;
-        if(isMentionTriggered) {
-            args = message.content.slice(config.prefix.length)
-        } else {
-            const regex = new RegExp("<@.?" + botId + ">", "")
-            args = message.content.replace(regex, " ")
-        }
+    	let args;
+    	if(isMentionTriggered) {
+    		args = message.content.slice(prefix.length);
+    	}
+    	else {
+    		const regex = new RegExp("<@.?" + botId + ">", "");
+    		args = message.content.replace(regex, " ");
+    	}
 
-        return args.trim().split(" ");
+    	return args.trim().split(" ");
     }
 
     static memberCountUpdate(client) {
-        const servers = client.guilds.cache;
-        const membersNum = servers.reduce((x, y) => x + y.memberCount, 0);
-        client.user.setActivity(`over ${servers.size} server/s and ${membersNum} member/s`, {type: "WATCHING"});
+    	const servers = client.guilds.cache;
+    	const membersNum = servers.reduce((x, y) => x + y.memberCount, 0);
+    	client.user.setActivity(`over ${servers.size} server/s and ${membersNum} member/s`, { type: "WATCHING" });
     }
 
 }

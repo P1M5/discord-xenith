@@ -11,7 +11,6 @@ To use this project you will need to create a `config.json` file in the highest 
 1. `BOT_TOKEN` - the discord bot token
 2. `owner_id` - the id of the owner
 3. `prefix` - the prefix for each command
-4. `bot_version` - the bot version (recommended format X.X.X, optionally X.X.X (version name)
 
 ### Example
 ```
@@ -19,7 +18,6 @@ To use this project you will need to create a `config.json` file in the highest 
   "BOT_TOKEN": "your.auth.token.here",
   "owner_id": "youDiscordUserId",
   "prefix": ">"
-  "bot_version":  "X.X.X"
 }
 ```
 ## Start

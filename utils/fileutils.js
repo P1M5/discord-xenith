@@ -9,30 +9,31 @@ const fs = require("fs");
 * @arg {string} initialPath - Path which will be the starting (root) point.
 * @returns {string[]} - Array of all file paths in the root directory (or its subdirectories).
 */
-function filePaths(initialPath){
+function filePaths(initialPath) {
 
-    const files = [];
-    const folderQueue = []; // Queue for BFS
+	const files = [];
+	const folderQueue = []; // Queue for BFS
 
-    folderQueue.push(initialPath);
+	folderQueue.push(initialPath);
 
-    while (folderQueue.length > 0) {
+	while (folderQueue.length > 0) {
 
-        const folder = folderQueue.shift();
-        const allFiles = fs.readdirSync(folder);
+		const folder = folderQueue.shift();
+		const allFiles = fs.readdirSync(folder);
 
-        allFiles.forEach((file) => {
-            const p = folder+"/"+file;
-            stats = fs.statSync(p);
-            if (stats.isDirectory()) {
-                folderQueue.push(p);
-            } else {
-                files.push(p);
-            }
-        })
+		allFiles.forEach((file) => {
+			const p = folder + "/" + file;
+			const stats = fs.statSync(p);
+			if (stats.isDirectory()) {
+				folderQueue.push(p);
+			}
+			else {
+				files.push(p);
+			}
+		});
 
-    }
-    return files;
+	}
+	return files;
 }
 
 exports.filePaths = filePaths;
