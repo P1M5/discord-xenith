@@ -1,5 +1,8 @@
 # Config
 .env
 
+# Editors
+.eslintrc.json
+
 # Node modules
 node_modules/
