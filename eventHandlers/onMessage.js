@@ -33,7 +33,7 @@ class Message {
             command.execute(msgToken);
         } catch (error) {
             console.error(error);
-            message.reply(`There was an error executing the command \`${command}\`, please contact the developer if the error persists.`);
+            message.reply(`There was an error executing the command \`${command.name}\`, please contact the developer if the error persists.`);
         }
 
         this.memberCountUpdate(client); //Needs to be made async for now

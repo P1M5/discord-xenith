@@ -19,7 +19,6 @@ class Help extends BasicCommand {
     static category = "General";
 
     static execute (msgToken) {
-        debug(msgToken);
         const { commands } = msgToken.message.client;
 
         if (!msgToken.args) {

@@ -8,13 +8,13 @@ module.exports = class Reload extends BasicCommand {
     static args = true;
     static usage = "<command name>";
     static ownerOnly = true;
-    static execute (message, args) {
-        const commandName = args[0].toLowerCase();
-        const command = message.client.commands.get(commandName)
-           || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    static execute (msgToken) {
+        const commandName = msgToken.args.toLowerCase();
+        const command = msgToken.message.client.commands.get(commandName)
+           || msgToken.message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
            if(!command) {
-             return message.channel.send(`The command ${commandName} you requested was not found`)
+             return msgToken.message.channel.send(`The command ${commandName} you requested was not found`)
            }
 
            const commandFolders = fs.readdirSync("./commands");
@@ -24,11 +24,11 @@ module.exports = class Reload extends BasicCommand {
 
            try {
              const newCommand = require(`../${folderName}/${command.name}.js`);
-             message.client.commands.set(newCommand.name, newCommand);
-             message.channel.send(`Command \`${newCommand.name}\` was reloaded successfully`);
+             msgToken.message.client.commands.set(newCommand.name, newCommand);
+             msgToken.message.channel.send(`Command \`${newCommand.name}\` was reloaded successfully`);
            } catch (e) {
              console.error(e);
-             message.channel.send(`There was an error while trying to reaload the command \`${command.name}\`:\n${error.message}`);
+             msgToken.message.channel.send(`There was an error while trying to reaload the command \`${command.name}\`:\n${error.message}`);
            }
     }
 }

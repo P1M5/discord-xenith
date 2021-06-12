@@ -4,8 +4,8 @@ module.exports = class Restart extends BasicCommand {
     static name = "restart";
     static description = "Restarts the bot";
     static ownerOnly = true;
-    static execute (message) {
-        message.react("👌").then(msg =>
+    static execute (msgToken) {
+        msgToken.message.react("👌").then(msg =>
         process.exit())
         .catch(e =>
         console.error(e));
