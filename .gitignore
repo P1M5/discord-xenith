@@ -1,5 +1,5 @@
 # Config
-config/config.json
+.env
 
 # Node modules
 node_modules/

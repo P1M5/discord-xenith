@@ -40,7 +40,7 @@ class Urban extends BasicCommand {
 
              			const embed = new MessageEmbed()
              				.setTitle(Defin.word)
-             				.setColor("DARK_BLUE")
+             				.setColor("DARK_GREEN")
              				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
              				.setTimestamp()
              				.setDescription(Defin.definition)
@@ -63,7 +63,7 @@ class Urban extends BasicCommand {
 
              			const embed = new MessageEmbed()
              				.setTitle(`${Defin.word} (Definition #${num})`)
-             				.setColor("DARK_BLUE")
+             				.setColor("DARK_GREEN")
              				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
              				.setTimestamp()
              				.setDescription(Defin.definition)
@@ -87,7 +87,7 @@ class Urban extends BasicCommand {
 
              			const embed = new MessageEmbed()
              				.setTitle(`${Defin.word} (Definition #${num})`)
-             				.setColor("DARK_BLUE")
+             				.setColor("DARK_GREEN")
              				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
              				.setTimestamp()
              				.setDescription(Defin.definition)

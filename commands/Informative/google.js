@@ -22,7 +22,7 @@ class Google extends BasicCommand {
 
     	const embedInit = new MessageEmbed()
     		.setTitle("Loading...")
-    		.setColor("DARK_BLUE")
+    		.setColor("DARK_GREEN")
     		.setDescription("Please wait")
     		.setTimestamp()
     		.setFooter(`${msgToken.message.client.ws.ping} ms`);
@@ -36,7 +36,7 @@ class Google extends BasicCommand {
 
     			const embed = new MessageEmbed()
     				.setTitle("Google Search")
-    				.setColor("DARK_BLUE")
+    				.setColor("DARK_GREEN")
     				.setTimestamp()
     				.setFooter(`${msgToken.message.client.ws.ping} ms`)
     				.addFields(

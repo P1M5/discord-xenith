@@ -4,9 +4,9 @@ Not just an average Discord bot.
 ## Prerequisites
 NodeJs is needed to run the code
 
-## Config file
+## .env file
 
-To use this project you will need to create a `config.json` file in the highest level directory with the following information (all values must be of `STRING` type).
+To use this project you will need to create a `.env` file in the highest level directory with the following information (all values must be of `STRING` type).
 
 1. `BOT_TOKEN` - the discord bot token
 2. `owner_id` - the id of the owner
@@ -14,11 +14,9 @@ To use this project you will need to create a `config.json` file in the highest 
 
 ### Example
 ```
-{
-  "BOT_TOKEN": "your.auth.token.here",
-  "owner_id": "youDiscordUserId",
-  "prefix": ">"
-}
+  BOT_TOKEN = "your.auth.token.here"
+  owner_id = "youDiscordUserId"
+  prefix = ">"
 ```
 ## Start
 1. Clone or download the project.
@@ -31,4 +29,4 @@ __Developers Notes:__ Use the `npm run dev`(starts the bot using `nodemon`) comm
 
 ## Invite
 
-You should also consider editing the [invite command's](https://github.com/P1M5/discord-margin/blob/main/commands/General/invite.js) links
+You should also consider editing the [invite command's](https://github.com/P1M5/discord-xenith/blob/main/commands/General/invite.js) links

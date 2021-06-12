@@ -1,4 +1,4 @@
-const { prefix, owner_id } = require("../config/config.json");
+const dotenv = require("dotenv").config();
 
 class Message {
 
@@ -7,7 +7,7 @@ class Message {
     static execute(message) {
 
     	const client = message.client;
-    	const isPrefixTriggered = message.content.startsWith(prefix);
+    	const isPrefixTriggered = message.content.startsWith(process.env.prefix);
     	if(message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
 
     	const args = this.argParser(message, isPrefixTriggered, client.user.id);
@@ -24,9 +24,9 @@ class Message {
             || client.commands.find(cmd => cmd.aliases && cmd.aliases.has(msgToken.commandName));
     	if (!command) return;
 
-    	if (msgToken.message.author.id != owner_id &&
+    	if (msgToken.message.author.id != process.env.owner_id &&
             !command.cooldownCheck(message)) return;
-    	if(!command.checkConditions(msgToken, msgToken.message.author.id == owner_id,
+    	if(!command.checkConditions(msgToken, msgToken.message.author.id == process.env.owner_id,
     		message.channel.type)) return;
     	try {
     		command.execute(msgToken);
@@ -42,7 +42,7 @@ class Message {
     static argParser(message, isMentionTriggered, botId) {
     	let args;
     	if(isMentionTriggered) {
-    		args = message.content.slice(prefix.length);
+    		args = message.content.slice(process.env.prefix.length);
     	}
     	else {
     		const regex = new RegExp("<@.?" + botId + ">", "");

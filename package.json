@@ -1,10 +1,10 @@
 {
-  "name": "Margin",
+  "name": "Xenith",
   "version": "0.1.0",
   "engines": {
     "node": ">=14.0.0"
   },
-  "description": "",
+  "description": "Discord bot that covers all bases from useful commands to roleplay to a full-fledged card game!",
   "main": "./bot.js",
   "scripts": {
     "start": "node ./bot.js",
@@ -15,17 +15,18 @@
   "dependencies": {
     "debug": "^4.3.1",
     "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0",
     "google-it": "^1.6.2",
     "nodemon": "^2.0.7",
     "urban-dictionary": "^3.0.1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/P1M5/discord-margin.git"
+    "url": "git+https://github.com/P1M5/discord-xenith.git"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/P1M5/discord-margin/issues"
+    "url": "https://github.com/P1M5/discord-xenith/issues"
   },
-  "homepage": "https://github.com/P1M5/discord-margin#readme"
+  "homepage": "https://github.com/P1M5/discord-xenith#readme"
 }

@@ -1,7 +1,6 @@
 const { MessageEmbed } = require("discord.js");
-const { prefix, owner_id } = require("../../config/config.json");
+const dotenv = require("dotenv").config();
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
-const debug = require("debug")("DB");
 
 
 /**
@@ -20,7 +19,6 @@ class Help extends BasicCommand {
 
     static execute(msgToken) {
 
-    	debug(msgToken);
     	const { commands } = msgToken.message.client;
     	const ping = msgToken.message.client.ws.ping;
 
@@ -39,14 +37,14 @@ class Help extends BasicCommand {
 
     		const embed = new MessageEmbed()
     			.setTitle("Commands List")
-    			.setColor("DARK_BLUE")
-    			.setFooter(`To find more about a specific command use ${prefix}help <command name> | ${ping} ms`)
+    			.setColor("DARK_GREEN")
+    			.setFooter(`To find more about a specific command use ${process.env.prefix}help <command name> | ${ping} ms`)
     			.setTimestamp();
     		if(gen_com) embed.addField("General Commands", gen_com);
     		if(info_com) embed.addField("Informative Commands", info_com);
     		if(extra_com) embed.addField("Extra Commands", extra_com);
     		if(mod_com) embed.addField("Moderation Commands", mod_com);
-    		if(owner_com && msgToken.message.author.id == owner_id) embed.addField("Owner Commands", owner_com);
+    		if(owner_com && msgToken.message.author.id == process.env.owner_id) embed.addField("Owner Commands", owner_com);
     		if(fun_com) embed.addField("Fun Commands", fun_com);
     		if(card_com) embed.addField("Cardcord Commands", card_com);
     		if(ai_com) embed.addField("AI Commands", ai_com);
@@ -60,11 +58,11 @@ class Help extends BasicCommand {
     		return msgToken.reply("That's not a valid command");
     	}
 
-    	if (command.ownerOnly && msgToken.author.id !== owner_id) return;
+    	if (command.ownerOnly && msgToken.author.id !== process.env.owner_id) return;
 
     	const embed = new MessageEmbed()
     		.setTitle(command.getName())
-    		.setColor("DARK_BLUE")
+    		.setColor("DARK_GREEN")
     		.setTimestamp()
     		.setFooter(`${ping} ms`);
     	(command.getAliases()) && embed.addField("Aliases:", command.getAliases().join(", "));

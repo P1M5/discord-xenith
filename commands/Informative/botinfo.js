@@ -42,7 +42,7 @@ class BotInfo extends BasicCommand {
 
     	const embed = new MessageEmbed()
     		.setTitle("About")
-    		.setColor("DARK_BLUE")
+    		.setColor("DARK_GREEN")
     		.setThumbnail(client.user.displayAvatarURL())
     		.setFooter(`${msgToken.message.client.ws.ping} ms`)
     		.setTimestamp()
