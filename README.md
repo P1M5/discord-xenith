@@ -1,4 +1,4 @@
-<h1> Project P&lteaBotty&gt </h1>
+<h1> Project Xenith </h1>
 Not just an average Discord bot.
 
 ## Prerequisites
@@ -31,4 +31,4 @@ __Developers Notes:__ Use the `npm run dev`(starts the bot using `nodemon`) comm
 
 ## Invite
 
-You should also consider editing the [invite command's](https://github.com/P1M5/discord-testBotty/blob/main/commands/general_commands/invite.js) links
+You should also consider editing the [invite command's](https://github.com/P1M5/discord-margin/blob/main/commands/General/invite.js) links
