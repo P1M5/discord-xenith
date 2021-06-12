@@ -25,7 +25,7 @@ class Message {
     	if (!command) return;
 
     	if (msgToken.message.author.id != process.env.owner_id &&
-            !command.cooldownCheck(message)) return;
+            !command.checkCooldown(message)) return;
     	if(!command.checkConditions(msgToken, msgToken.message.author.id == process.env.owner_id,
     		message.channel.type)) return;
     	try {

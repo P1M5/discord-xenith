@@ -55,7 +55,7 @@ class Help extends BasicCommand {
     	const name = msgToken.args.trim().toLowerCase();
     	const command = commands.get(name) || commands.find(cmd => cmd.aliases && cmd.aliases.has(name));
     	if (!command) {
-    		return msgToken.reply("That's not a valid command");
+    		return msgToken.message.reply("That's not a valid command");
     	}
 
     	if (command.ownerOnly && msgToken.author.id !== process.env.owner_id) return;
