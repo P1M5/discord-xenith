@@ -39,9 +39,9 @@ class Message {
     	this.memberCountUpdate(client); // Needs to be made async for now
     }
 
-    static argParser(message, isMentionTriggered, botId) {
+    static argParser(message, isPrefixTriggered, botId) {
     	let args;
-    	if(isMentionTriggered) {
+    	if(isPrefixTriggered) {
     		args = message.content.slice(process.env.prefix.length);
     	}
     	else {
