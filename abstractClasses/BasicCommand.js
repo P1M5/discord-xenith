@@ -71,7 +71,7 @@ class BasicCommand {
 
     	const expirationTime = cooldownToken.start + this.cooldown;
 
-    	if(cooldownToken.commandName == this.name && now + 150 < expirationTime) { // No need to check owner cooldown here.
+    	if(cooldownToken.commandName == this.name && now < expirationTime) { // No need to check owner cooldown here.
     		const timeLeft = (expirationTime - now) / 1000;
     		message.reply(`You need to wait ${timeLeft.toFixed(1)} s before using the \`${this.name}\` command again`);
     		return false;
