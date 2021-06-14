@@ -17,16 +17,15 @@
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "google-it": "^1.6.2",
+    "jest": "^27.0.4",
     "nodemon": "^2.0.7",
     "urban-dictionary": "^3.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/P1M5/discord-xenith.git"
-  },
+  "repository": "git+https://github.com/P1M5/discord-xenith.git",
   "keywords": [],
   "bugs": {
     "url": "https://github.com/P1M5/discord-xenith/issues"
   },
-  "homepage": "https://github.com/P1M5/discord-xenith#readme"
+  "homepage": "https://github.com/P1M5/discord-xenith#readme",
+  "private": true
 }
