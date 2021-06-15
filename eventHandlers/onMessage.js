@@ -1,4 +1,4 @@
-const dotenv = require("dotenv").config();
+const config = require("../config/config.json");
 
 class Message {
 
@@ -7,8 +7,65 @@ class Message {
     static execute(message) {
 
     	const client = message.client;
-    	const isPrefixTriggered = message.content.startsWith(process.env.prefix);
-    	if(message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
+    	const isPrefixTriggered = message.content.startsWith(config.prefix);
+
+        if (message.author.bot) return;
+
+        if (message.content == "bang") {
+            message.reply("the pussy!")
+        }
+        if (message.content == "pussy") {
+            message.reply("bang!")
+        }
+        if (message.content.match((/.*peabotty.*/i)) || message.content.match((/.*Zenith.*/i))) {
+            message.reply("Xenith*")
+        }
+
+        if (message.content.match((/.*peabotty.*/i)) || message.content.match((/.*Zenith.*/i))) {
+            message.reply("Xenith*")
+        }
+
+        const test = message.content.match((/Probot| L |Lawliet|karuta|Dyno/i))
+        if (test) {
+            message.reply(`${test} is trash. Xenith bestie`)
+        }
+
+        const test2 = message.content.match((/Mee|Mee6|DokiDoki|Doki|Drpg|dungeon rpg|dungeonrpg/i))
+        if (test2) {
+            message.reply(`${test2} is my frien :)`)
+        }
+
+        const te = message.content.match((/Xandria/i))
+        if (te) {
+            message.reply(`${te} is my sister :)`)
+        }
+
+        const test22 = message.content.match((/pocket.u|poket.u/i))
+        if (test22) {
+            message.reply(`${test22} is a bitch`)
+        }
+
+        const test23 = message.content.match((/heroku/i))
+        if (test23) {
+            message.reply(`I want ${test23}`)
+        }
+
+        const test3 = message.content.match((/p1m5|p1m|pim5|pim/i))
+        if (test3) {
+            message.reply(`${test3} is my owner and frien :)`)
+        }
+
+        if (message.content == "pussy bang" || message.content == "bang the pussy") {
+            message.reply("this is not an nsfw channel. You will now be terminated")
+        }
+
+        const final = message.content.match((/leave this in for final/i))
+        if (final) {
+            message.reply(`yes`)
+        }
+
+
+    	if (message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
 
     	const args = this.argParser(message, isPrefixTriggered, client.user.id);
 
@@ -24,9 +81,9 @@ class Message {
             || client.commands.find(cmd => cmd.aliases && cmd.aliases.has(msgToken.commandName));
     	if (!command) return;
 
-    	if (msgToken.message.author.id != process.env.owner_id &&
+    	if (msgToken.message.author.id != config.owner_id &&
             !command.checkCooldown(message)) return;
-    	if(!command.checkConditions(msgToken, msgToken.message.author.id == process.env.owner_id,
+    	if(!command.checkConditions(msgToken, msgToken.message.author.id == config.owner_id,
     		message.channel.type)) return;
     	try {
     		command.execute(msgToken);
@@ -41,8 +98,13 @@ class Message {
 
     static argParser(message, isPrefixTriggered, botId) {
     	let args;
+<<<<<<< HEAD
     	if(isPrefixTriggered) {
     		args = message.content.slice(process.env.prefix.length);
+=======
+    	if(isMentionTriggered) {
+    		args = message.content.slice(config.prefix.length);
+>>>>>>> 237e249 (Created reaction eventHandler and collection to track all live messages)
     	}
     	else {
     		const regex = new RegExp("<@.?" + botId + ">", "");
