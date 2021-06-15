@@ -96,15 +96,10 @@ class Message {
     	this.memberCountUpdate(client); // Needs to be made async for now
     }
 
-    static argParser(message, isPrefixTriggered, botId) {
+    static argParser(message, isMentionTriggered, botId) {
     	let args;
-<<<<<<< HEAD
-    	if(isPrefixTriggered) {
-    		args = message.content.slice(process.env.prefix.length);
-=======
     	if(isMentionTriggered) {
     		args = message.content.slice(config.prefix.length);
->>>>>>> 237e249 (Created reaction eventHandler and collection to track all live messages)
     	}
     	else {
     		const regex = new RegExp("<@.?" + botId + ">", "");
