@@ -5,7 +5,7 @@ const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
 /**
 @static
-@description
+@description Gives the urban dictionary definition
 @extends BasicCommand
 
 @todo Turn it into an constructor from static
@@ -25,28 +25,37 @@ class Urban extends BasicCommand {
 
              	let num = 0;
              	let sliceEnd = args.length;
-             	const Defin = {};
 
              	if(parseInt(args[args.length - 1]) && args.length > 1) num = parseInt(args[args.length - 1]);
              	if(num < 0 || num > 9) return msgToken.message.channel.send("Definition number needs to be between `0` and `9`");
              	if(num !== 0) sliceEnd = sliceEnd - 1;
 
-             	if(args.length == 0) {
-             		ud.random().then((results) => {
+             	class udEmbed {
 
-             			Object.entries(results[0]).forEach(([key, prop]) => {
+             		constructor(res) {
+
+             			const Defin = {};
+             			Object.entries(res[0]).forEach(([key, prop]) => {
              				Defin[key] = prop;
              			});
 
-             			const embed = new MessageEmbed()
-             				.setTitle(Defin.word)
-             				.setColor("DARK_GREEN")
-             				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
-             				.setTimestamp()
-             				.setDescription(Defin.definition)
-             				.addField("Example:", Defin.example);
+             			 const embedSend = new MessageEmbed()
+             			.setTitle(Defin.word)
+             			.setColor("DARK_PURPLE")
+             			.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
+             			.setTimestamp()
+             			.setDescription(Defin.definition)
+             			.addField("Example:", Defin.example);
 
-             			msgToken.message.channel.send(embed);
+             			msgToken.message.channel.send(embedSend);
+             		}
+             	}
+
+             	if(args.length == 0) {
+             		ud.random().then((results) => {
+
+             			new udEmbed(results);
+
              		}).catch((error) => {
 
              			console.error(`Urban dictionary error: ${error.message}`);
@@ -57,19 +66,8 @@ class Urban extends BasicCommand {
              	else if (args[0] === "wotd") {
              		ud.wordsOfTheDay().then((results) => {
 
-             			Object.entries(results[num]).forEach(([key, prop]) => {
-             				Defin[key] = prop;
-             			});
+             			new udEmbed(results);
 
-             			const embed = new MessageEmbed()
-             				.setTitle(`${Defin.word} (Definition #${num})`)
-             				.setColor("DARK_GREEN")
-             				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
-             				.setTimestamp()
-             				.setDescription(Defin.definition)
-             				.addField("Example:", Defin.example);
-
-             			msgToken.message.channel.send(embed);
              		}).catch((error) => {
 
              			console.error(`Urban dictionary error: ${error.message}`);
@@ -81,18 +79,7 @@ class Urban extends BasicCommand {
              	else {
              		ud.define(args.slice(0, sliceEnd).toString()).then((results) => {
 
-             			Object.entries(results[num]).forEach(([key, prop]) => {
-             				Defin[key] = prop;
-             			});
-
-             			const embed = new MessageEmbed()
-             				.setTitle(`${Defin.word} (Definition #${num})`)
-             				.setColor("DARK_GREEN")
-             				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
-             				.setTimestamp()
-             				.setDescription(Defin.definition)
-             				.addField("Example:", Defin.example);
-             			msgToken.message.channel.send(embed);
+             			new udEmbed(results);
 
              		}).catch((error) => {
              			console.error(`Urban dictionary error: ${error.message}`);

@@ -37,7 +37,7 @@ class Help extends BasicCommand {
 
     		const embed = new MessageEmbed()
     			.setTitle("Commands List")
-    			.setColor("DARK_GREEN")
+    			.setColor("DARK_PURPLE")
     			.setFooter(`To find more about a specific command use ${process.env.prefix}help <command name> | ${ping} ms`)
     			.setTimestamp();
     		if(gen_com) embed.addField("General Commands", gen_com);
@@ -62,7 +62,7 @@ class Help extends BasicCommand {
 
     	const embed = new MessageEmbed()
     		.setTitle(command.getName())
-    		.setColor("DARK_GREEN")
+    		.setColor("DARK_PURPLE")
     		.setTimestamp()
     		.setFooter(`${ping} ms`);
     	(command.getAliases()) && embed.addField("Aliases:", command.getAliases().join(", "));

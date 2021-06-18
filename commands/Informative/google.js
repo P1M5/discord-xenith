@@ -5,7 +5,7 @@ const { MessageEmbed } = require("discord.js");
 
 /**
 @static
-@description
+@description Search google for something
 @extends BasicCommand
 
 @todo Turn it into an constructor from static
@@ -22,7 +22,7 @@ class Google extends BasicCommand {
 
     	const embedInit = new MessageEmbed()
     		.setTitle("Loading...")
-    		.setColor("DARK_GREEN")
+    		.setColor("DARK_PURPLE")
     		.setDescription("Please wait")
     		.setTimestamp()
     		.setFooter(`${msgToken.message.client.ws.ping} ms`);
@@ -36,7 +36,7 @@ class Google extends BasicCommand {
 
     			const embed = new MessageEmbed()
     				.setTitle("Google Search")
-    				.setColor("DARK_GREEN")
+    				.setColor("DARK_PURPLE")
     				.setTimestamp()
     				.setFooter(`${msgToken.message.client.ws.ping} ms`)
     				.addFields(

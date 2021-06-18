@@ -39,21 +39,25 @@ class BotInfo extends BasicCommand {
 
     	const servers = client.guilds.cache;
     	const membersNum = servers.reduce((x, y) => x + y.memberCount, 0);
+    	let ms, ss, mons; ms = ss = mons = "";
+  		if(membersNum > 1) ms = "s";
+  		if(servers.size > 1) ss = "s";
+    	if(dateDifMon > 1) mons = "s";
 
     	const embed = new MessageEmbed()
     		.setTitle("About")
-    		.setColor("DARK_GREEN")
+    		.setColor("DARK_PURPLE")
     		.setThumbnail(client.user.displayAvatarURL())
     		.setFooter(`${msgToken.message.client.ws.ping} ms`)
     		.setTimestamp()
     		.addFields(
-    			{ name: "Serving:", value: `${servers.size} server/s and ${membersNum} member/s` },
+    			{ name: "Serving:", value: `${servers.size} server${ss} and ${membersNum} member${ms}` },
     			{ name: "Bot version:", value:  botVersion },
     			{ name: "Discord.js version:", value: version },
     			{ name: "Memory Usage:", value: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100} MB` },
     			{ name: "Uptime:", value: `Uptime is ${days} d, ${hours} h, ${minutes} m and ${seconds} s` },
     			{ name: "Ping:", value: `${client.ws.ping} ms` },
-    			{ name: "Birthday:", value: `${dateCreated.toLocaleString("en-GB", optionsD)} (${dateDifMon} month/s ago)` },
+    			{ name: "Birthday:", value: `${dateCreated.toLocaleString("en-GB", optionsD)} (${dateDifMon} month${mons} ago)` },
     		);
     	msgToken.message.channel.send(embed);
     }
