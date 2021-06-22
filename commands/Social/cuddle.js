@@ -13,6 +13,8 @@ class Cuddle extends BasicCommand {
 
 	static name = "cuddle";
 	static description = "Cuddle with someone";
+	static category = "Social";
+	static usage = "<user id,username or mention>";
 
 	static execute(msgToken) {
 

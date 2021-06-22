@@ -55,7 +55,7 @@ class BotInfo extends BasicCommand {
     			{ name: "Bot version:", value:  botVersion },
     			{ name: "Discord.js version:", value: version },
     			{ name: "Memory Usage:", value: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100} MB` },
-    			{ name: "Uptime:", value: `Uptime is ${days} d, ${hours} h, ${minutes} m and ${seconds} s` },
+    			{ name: "Uptime:", value: `Uptime is ${days}d, ${hours}h, ${minutes}m and ${seconds}s` },
     			{ name: "Ping:", value: `${client.ws.ping} ms` },
     			{ name: "Birthday:", value: `${dateCreated.toLocaleString("en-GB", optionsD)} (${dateDifMon} month${mons} ago)` },
     		);

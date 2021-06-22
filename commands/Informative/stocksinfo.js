@@ -1,5 +1,5 @@
 module.exports = {
-	name: "stocks",
+	name: "stocksinfo",
 	description: "Display information about stocks and cryptocurrency",
 	aliases: new Set(["cryptocurrency", "crypto", "stocks", "$", "investing", "currency", "stonk"]),
 	category: "Informative",
