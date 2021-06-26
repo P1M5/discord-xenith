@@ -20,6 +20,8 @@ class Reaction {
 
         const msgObj = ReactionCenter.getMessage(reaction.message.id);
 
+        reaction.users.remove(user.id);
+
         if (!msgObj) return;
 
         if (user.id != msgObj.userid) return;

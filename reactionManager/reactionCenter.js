@@ -4,7 +4,7 @@ const { Collection } = require("discord.js");
 class ReactionCenter {
 
     // Note ot self: Look into await reactions and reaction collectors
-    
+
     static liveMessages = new Collection(); // Message used as key
 
     /**
