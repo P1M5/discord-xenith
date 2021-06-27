@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Collection } = require("discord.js");
 const config = require("../../config/config.json");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 const ReactionCenter = require("../../reactionManager/ReactionCenter.js");
-
+const fileutils = require("../../utils/fileutils.js");
 
 
 /**
@@ -19,6 +19,9 @@ class Help extends BasicCommand {
     static usage = "[command name]";
     static category = "General";
 
+    static commandList = new Collection();
+    static helpmsg;
+
     static execute(msgToken) {
 
     	const { commands } = msgToken.message.client;
@@ -26,13 +29,40 @@ class Help extends BasicCommand {
 
         const userid = msgToken.message.author.id;
 
-        const helpmsg = ["Page 1", "Page 2", "Page 3", "Page 4"];
+        commands.forEach( (command) => {
+
+            if (!this.commandList.has(command.category)) {
+                const commandCollectionTemplate = new Object();
+                commandCollectionTemplate.name = command.category;
+                commandCollectionTemplate.list = [command.name];
+                this.commandList.set(command.category, commandCollectionTemplate)
+            } else {
+                let commandObj = this.commandList.get(command.category);
+                commandObj.list.push(command.name);
+            }
+        });
+
+        console.log(this.commandList);
+
+
+
+        this.helpmsg = Array.from(this.commandList.values()).map((cmdObj) => {
+            const embed = new MessageEmbed()
+        			.setTitle("Commands List")
+        			.setColor("ORANGE")
+        		    .setFooter(`To find more about a specific command use ${config.prefix}help <command name> | ${ping} ms`)
+        			.setTimestamp();
+            console.log(cmdObj);
+            embed.addField(cmdObj.name, cmdObj.list.join("\n"));
+
+            return embed;
+        });
 
         const commandObj = {
             page: 0,
-            maxPage: helpmsg.length - 1,
-            message: helpmsg,
-            content: helpmsg[0]
+            maxPage: this.helpmsg.length - 1,
+            message: this.helpmsg,
+            content: this.helpmsg[0]
         }
 
         const reactions = ["◀️","▶️"]

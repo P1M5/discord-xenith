@@ -16,16 +16,13 @@ class Reaction {
             reaction = await reaction.fetch();
         }
 
-        console.log(reaction.me);
-
         const msgObj = ReactionCenter.getMessage(reaction.message.id);
-
-        reaction.users.remove(user.id);
 
         if (!msgObj) return;
 
-        if (user.id != msgObj.userid) return;
+        if (user.id != msgObj.userid) return reaction.users.remove(user.id);
 
+        reaction.users.remove(user.id);
         msgObj.command.userReaction(msgObj, reaction);
         ReactionCenter.updateMessage(msgObj, reaction);
 

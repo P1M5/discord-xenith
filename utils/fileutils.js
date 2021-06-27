@@ -6,7 +6,7 @@ const fs = require("fs");
 * algorithm to traverse folders until all files are found. The relative file paths
 * from the root path are then returned.
 *
-* @arg {string} initialPath - Path which will be the starting (root) point.
+* @arg {string} initialPath - Root path from the execution directory.
 * @returns {string[]} - Array of all file paths in the root directory (or its subdirectories).
 */
 function filePaths(initialPath) {
