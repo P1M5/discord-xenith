@@ -2,6 +2,9 @@
 .env
 package-lock.json
 
+# Compilation
+out/*
+
 # Editors
 .eslintrc.json
 

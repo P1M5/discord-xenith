@@ -24,7 +24,9 @@ To use this project you will need to create a `.env` file in the highest level d
 3.  If this is your first time running this bot, run the `npm install` command to install the dependencies.
 4. Run `npm run start` command to start the bot
 
-__Developers Notes:__ Use the `npm run dev`(starts the bot using `nodemon`) command for debugging and `npm run start` (starts it using `node`) for any other launch. `Nodemon` is part of the dependencies so it should already be installed. It will speed up the development process because you will not need to restart the bot after every edit.
+__Developers Notes:__ Use the `npm run dev`(starts the bot using `nodemon`) command for development/debugging and `npm run start` (starts it using `node`) for any other launch. `Nodemon` is part of the dependencies so it should already be installed. It will speed up the development process because you will not need to restart the bot after every edit.
+
+__After Typescript implementation:__ After running `npm run dev` in a terminal, open a new terminal and run the command `tsc --watch` to ensure Typescript compiles on save. You can also run this in the background before `npm run dev`.
 
 
 ## Invite
