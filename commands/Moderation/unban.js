@@ -1,6 +1,6 @@
 module.exports = {
 	name: "unban",
-	description: "Prune amount of messages",
+	description: "Unban someone",
 	aliases: new Set(["purge", "clean"]),
 	category: "Moderation",
 	usage: "<amount (defaults to 1)>",

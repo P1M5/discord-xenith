@@ -3,7 +3,7 @@ const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
 /**
 @static
-@description
+@description Make the bot say something
 @extends BasicCommand
 
 @todo Turn it into an constructor from static
@@ -14,9 +14,10 @@ class Say extends BasicCommand {
     static category = "Social";
     static usage = "<text>";
     static args = true;
+
     static execute(msgToken) {
 
-    	msgToken.message.channel.send(msgToken.args);
+    	msgToken.message.channeld.send(msgToken.args);
     }
 }
 

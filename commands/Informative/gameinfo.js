@@ -1,7 +1,7 @@
 module.exports = {
-	name: "game",
+	name: "gameinfo",
 	description: "Display information about a game",
-	aliases: new Set(["gameinfo"]),
+	aliases: new Set(["game"]),
 	category: "Informative",
 	usage: "<game name>[rate 1-100]",
 	args: true,

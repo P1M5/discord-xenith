@@ -1,20 +1,28 @@
 const { randomInt } = require("crypto");
 
-const letterArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-const symArr = ["!", "#", "@", "%", "$", "*", "&", "?"];
-const resArr = [];
-
-function alphaNumSym(length = 10) {
-	while(resArr.length < length) {
-		const num = randomInt(-9, 9);
-		if (num < 0) {
-			resArr.push(letterArr[randomInt(0, 25)]);
+function alphaNumSym(length = 10, numsIncluded = true, seed = false) {
+	let letterArr;
+	let symArr;
+	if(!seed) {
+		letterArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+		symArr = ["!", "#", "@", "%", "$", "*", "&", "?"];
+	}
+	else {
+		seed = seed.split("");
+		letterArr = seed.slice(0, (seed.length / 2) + 1);
+		symArr = seed.slice(-(seed.length / 2));
+	}
+	const resArr = [];
+	while(resArr.filter(el => el === 0 || el).length < length) {
+		const num = randomInt(-5, 9);
+		if (num <= 0) {
+			resArr.push(letterArr[randomInt(0, letterArr.length)]);
 		}
-		else if (num > 0) {
+		else if (num < 5 && num > 0) {
+			resArr.push(symArr[randomInt(0, symArr.length)]);
+		}
+		else if(numsIncluded && num >= 5) {
 			resArr.push(randomInt(0, 9));
-		}
-		else {
-			resArr.push(symArr[randomInt(0, 9)]);
 		}
 	}
 	return resArr.join("");

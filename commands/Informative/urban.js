@@ -1,11 +1,11 @@
 const ud = require("urban-dictionary");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Util } = require("discord.js");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
 
 /**
 @static
-@description
+@description Gives the urban dictionary definition
 @extends BasicCommand
 
 @todo Turn it into an constructor from static
@@ -22,85 +22,67 @@ class Urban extends BasicCommand {
              static execute(msgToken) {
 
              	const args = msgToken.args.split(/ +/);
+             	let sliceEnd = args.length - 1;
+             	let numb = parseInt(args.slice(args.length - 1, args.length));
+             	if (isNaN(numb)) {
+             		numb = 0;
+             		sliceEnd = args.length;
+             	}
+             	const uinput = args.slice(0, sliceEnd).join(" ");
 
-             	let num = 0;
-             	let sliceEnd = args.length;
-             	const Defin = {};
+             	class udEmbed {
 
-             	if(parseInt(args[args.length - 1]) && args.length > 1) num = parseInt(args[args.length - 1]);
-             	if(num < 0 || num > 9) return msgToken.message.channel.send("Definition number needs to be between `0` and `9`");
-             	if(num !== 0) sliceEnd = sliceEnd - 1;
+             		constructor(res, number = 0, wotd = false) {
 
-             	if(args.length == 0) {
-             		ud.random().then((results) => {
-
-             			Object.entries(results[0]).forEach(([key, prop]) => {
+             			let titleDef = `(Definition #${number})`;
+             			if(wotd) titleDef = `(Wotd #${number})`;
+             			if(number === 0) titleDef = "";
+             			const Defin = {};
+             			Object.entries(res[number]).forEach(([key, prop]) => {
              				Defin[key] = prop;
              			});
 
-             			const embed = new MessageEmbed()
-             				.setTitle(Defin.word)
-             				.setColor("DARK_GREEN")
-             				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
-             				.setTimestamp()
-             				.setDescription(Defin.definition)
-             				.addField("Example:", Defin.example);
-
-             			msgToken.message.channel.send(embed);
-             		}).catch((error) => {
-
-             			console.error(`Urban dictionary error: ${error.message}`);
-             			msgToken.message.channel.send(error.message);
-
-             		});
+             			 const embedSend = new MessageEmbed()
+             			.setTitle(`${Defin.word} ${titleDef}`)
+             			.setColor("DARK_PURPLE")
+             			.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
+             			.setTimestamp()
+             			.setDescription(Defin.definition)
+             			msgToken.message.channel.send(embedSend);
+             		}
              	}
-             	else if (args[0] === "wotd") {
+             	if(args[0] != "" && args[0] != "wotd") {
+             		ud.define(uinput).then((results) => {
+
+             			new udEmbed(results, numb);
+             			console.log(args[0]);
+             		})
+             			.catch((e) => {
+             				console.log(`Urban Dictionary: ${e}`);
+             				if(e.message == "Cannot convert undefined or null to object") msgToken.message.channel.send("Out of range, try a lower number");
+             			});
+             	}
+             	else if (args[0] == "wotd") {
              		ud.wordsOfTheDay().then((results) => {
 
-             			Object.entries(results[num]).forEach(([key, prop]) => {
-             				Defin[key] = prop;
+             			new udEmbed(results, numb, true);
+             		})
+             			.catch((e) => {
+             				console.log(`Urban Dictionary: ${e}`);
              			});
-
-             			const embed = new MessageEmbed()
-             				.setTitle(`${Defin.word} (Definition #${num})`)
-             				.setColor("DARK_GREEN")
-             				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
-             				.setTimestamp()
-             				.setDescription(Defin.definition)
-             				.addField("Example:", Defin.example);
-
-             			msgToken.message.channel.send(embed);
-             		}).catch((error) => {
-
-             			console.error(`Urban dictionary error: ${error.message}`);
-             			if(error.message === "Cannot convert undefined or null to object") return msgToken.message.channel.send("Definition number not found, try a lower number");
-             			msgToken.message.channel.send(error.message);
-
-             		});
              	}
              	else {
-             		ud.define(args.slice(0, sliceEnd).toString()).then((results) => {
+             		ud.random().then((results) => {
 
-             			Object.entries(results[num]).forEach(([key, prop]) => {
-             				Defin[key] = prop;
+             			new udEmbed(results);
+             		})
+             			.catch((e) => {
+             				console.log(`Urban Dictionary: ${e}`);
              			});
-
-             			const embed = new MessageEmbed()
-             				.setTitle(`${Defin.word} (Definition #${num})`)
-             				.setColor("DARK_GREEN")
-             				.setFooter(`Author: ${Defin.author} | Written: ${new Date(Defin.written_on).toLocaleString("en-GB")} | ${msgToken.message.client.ws.ping} ms`)
-             				.setTimestamp()
-             				.setDescription(Defin.definition)
-             				.addField("Example:", Defin.example);
-             			msgToken.message.channel.send(embed);
-
-             		}).catch((error) => {
-             			console.error(`Urban dictionary error: ${error.message}`);
-             			if(error.message === "Cannot convert undefined or null to object") return msgToken.message.channel.send("Definition number not found, try a lower number");
-             			msgToken.message.channel.send(error.message);
-             		});
              	}
              }
+
+
 }
 
 module.exports = Urban;

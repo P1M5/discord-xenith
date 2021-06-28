@@ -112,7 +112,10 @@ class Message {
     static memberCountUpdate(client) {
     	const servers = client.guilds.cache;
     	const membersNum = servers.reduce((x, y) => x + y.memberCount, 0);
-    	client.user.setActivity(`over ${servers.size} server/s and ${membersNum} member/s`, { type: "WATCHING" });
+    	let ms, ss; ms = ss = "";
+  		if(membersNum > 1) ms = "s";
+  		if(servers.size > 1) ss = "s";
+    	client.user.setActivity(`over ${servers.size} server${ss} and ${membersNum} member${ms}`, { type: "WATCHING" });
     }
 
 }

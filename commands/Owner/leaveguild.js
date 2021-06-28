@@ -1,12 +1,22 @@
-module.exports = {
-	name: "leaveguild",
-	description: "Leaves a guild",
-	args: true,
-	usage: "[guild id]",
-	ownerOnly: true,
-	aliases: new Set(["guildleave", "gleave", "leaveg", "serverleave", "leaveserver", "lg"]),
-	category: "Owner",
-	execute(message, args) {
+const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
+
+/**
+@static
+@description Leaves a guild
+@extends BasicCommand
+
+@todo Turn it into an constructor from static
+ */
+class Leaveguild extends BasicCommand {
+	static name = "leaveguild";
+	static description = "Leaves a guild";
+	static args = true;
+	static usage = "[guild id]";
+	static ownerOnly = true;
+	static aliases = new Set(["guildleave", "gleave", "leaveg", "serverleave", "leaveserver", "lg"]);
+	static category = "Owner";
+
+	static execute(message, args) {
 
 		message.client.guilds.fetch(args, false)
 			.then(guild => {
@@ -16,5 +26,7 @@ module.exports = {
 					.catch(e => console.error(`Error when leaving guild with id ${guild.id}, args: ${args}, error ${e.message}`));
 			})
 			.catch(e => {message.channel.send(`Error when attmepting to leave guild with id \`${args}\``); console.error(`Caught exception: ${e.message}`);});
-	},
-};
+	}
+}
+
+module.exports = Leaveguild;

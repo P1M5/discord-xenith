@@ -1,7 +1,7 @@
 module.exports = {
-	name: "movie",
+	name: "movieinfo",
 	description: "Display information about a movie",
-	aliases: new Set(["movieinfo"]),
+	aliases: new Set(["movie"]),
 	category: "Informative",
 	usage: "<movie name>[rate 1-100]",
 	args: true,

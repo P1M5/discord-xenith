@@ -18,7 +18,7 @@ class Invite extends BasicCommand {
     static execute(msgToken) {
     	const embed = new MessageEmbed()
     		.setTitle("Invite")
-    		.setColor("DARK_GREEN")
+    		.setColor("DARK_PURPLE")
     		.setTimestamp()
     		.setFooter(`${msgToken.message.client.ws.ping} ms`)
     		.setDescription("Join the support server to ask questions, report bugs and meet an awesome community or use the bot invite link to invite the bot to your server!")

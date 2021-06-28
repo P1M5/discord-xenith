@@ -1,68 +1,51 @@
-const { MessageEmbed } = require("discord.js");
+const { Util, MessageEmbed } = require("discord.js");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 
 
 /**
 @static
-@description
+@description Cuddle with someone
 @extends BasicCommand
 
 @todo Turn it into an constructor from static
 */
 class Cuddle extends BasicCommand {
 
-	static name = "cuddle"
-	static description = "Cuddle with someone"
-	static category = "Social"
-	static usage = "<user id,username or mention>"
+	static name = "cuddle";
+	static description = "Cuddle with someone";
+	static category = "Social";
+	static usage = "<user id,username or mention>";
 
 	static execute(msgToken) {
 
-		function getUserFromMention(mention) {
-			if (!mention) return;
-
-			if (mention.startsWith("<@") && mention.endsWith(">")) {
-				mention = mention.slice(2, -1);
-
-				if (mention.startsWith("!")) {
-					mention = mention.slice(1);
-				}
-
-				return msgToken.message.client.users.cache.get(mention);
-			}
+		const num = Math.floor((Math.random() * 3) + 1);
+		let user;
+		 if(msgToken.args.startsWith("<@")) {
+			 user = Util.cleanContent(msgToken.args, msgToken.message).substring(2);
+		 }
+		else {
+			user = msgToken.args.split(/ +/)[0];
 		}
 
-		const num = Math.floor((Math.random() * 3) + 1);
-		const embed = new MessageEmbed();
-		let user = msgToken.args;
-		if(getUserFromMention(user)) {
-			user = getUserFromMention(msgToken.args).username;
+		function CuddleEmbed(image) {
+			const embed = new MessageEmbed()
+				.setTitle(`${msgToken.message.author.username} cuddles with ${(!msgToken.args || user === msgToken.message.author.username) ? "themselves" : user}`)
+				.setTimestamp()
+				.setColor("DARK_PURPLE")
+				.setFooter(`${msgToken.message.client.ws.ping} ms`)
+			  .setImage(image);
+			msgToken.message.channel.send(embed);
 		}
 
 		switch(num) {
 		case 1:
-			embed.setTitle(`${msgToken.message.author.username} cuddles with ${(!msgToken.args || user === msgToken.message.author.username) ? "themselves" : user}`);
-			embed.setColor("DARK_BLUE");
-			embed.setImage("https://media.giphy.com/media/131Q2gKssUNCwM/giphy.gif");
-			embed.setFooter(`${msgToken.message.client.ws.ping} ms`);
-			embed.setTimestamp();
-			msgToken.message.channel.send(embed);
+			CuddleEmbed("https://media.giphy.com/media/131Q2gKssUNCwM/giphy.gif");
 			break;
 		case 2:
-			embed.setTitle(`${msgToken.message.author.username} cuddles with ${(!msgToken.args) ? "themselves" : user}`);
-			embed.setColor("DARK_BLUE");
-			embed.setImage("https://media.giphy.com/media/h4BprYiFYNxRe/giphy.gif");
-			embed.setFooter(`${msgToken.message.client.ws.ping} ms`);
-			embed.setTimestamp();
-			msgToken.message.channel.send(embed);
+			CuddleEmbed("https://media.giphy.com/media/h4BprYiFYNxRe/giphy.gif");
 			break;
 		case 3:
-			embed.setTitle(`${msgToken.message.author.username} cuddles with ${(!msgToken.args) ? "themselves" : user}`);
-			embed.setColor("DARK_BLUE");
-			embed.setImage("https://media.giphy.com/media/PibhPmQYXZ7HO/giphy.gif");
-			embed.setFooter(`${msgToken.message.client.ws.ping} ms`);
-			embed.setTimestamp();
-			msgToken.message.channel.send(embed);
+			CuddleEmbed("https://media.giphy.com/media/PibhPmQYXZ7HO/giphy.gif");
 			break;
 		}
 	}
