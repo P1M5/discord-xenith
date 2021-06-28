@@ -1,5 +1,5 @@
 const { Client, Intents, Collection } = require("discord.js");
-const config = require("./config/config.json");
+const dotenv = require("dotenv").config();
 const fileutils = require("./utils/fileutils.js");
 
 
@@ -10,13 +10,13 @@ class Setup {
     constructor() {
     	const botIntents = new Intents(Intents.NON_PRIVILEGED);
 
-    	this.#client = new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'], ws: { intents: [ botIntents, "GUILD_MEMBERS"] } });
+    	this.#client = new Client({ ws: { intents: [ botIntents, "GUILD_MEMBERS"] } });
     	this.#client.commands = new Collection();
 
 
     	this.initCommands();
     	this.initEventListeners();
-    	this.#client.login(config.BOT_TOKEN);
+    	this.#client.login(process.env.BOT_TOKEN);
     }
 
 
