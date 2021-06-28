@@ -28,5 +28,8 @@
     "url": "https://github.com/P1M5/discord-xenith/issues"
   },
   "homepage": "https://github.com/P1M5/discord-xenith#readme",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^15.12.5"
+  }
 }

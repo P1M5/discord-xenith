@@ -1,6 +1,6 @@
-const { Client, Intents, Collection } = require("discord.js");
-const config = require("../config/config.json");
-const fileutils = require("./utils/fileutils.js");
+const { Client, Intents, Collection } = require("discord.js")!;
+const config = require("../config/config.json")!;
+const fileutils = require("./utils/fileutils.js")!;
 
 
 class Setup {
@@ -21,7 +21,7 @@ class Setup {
 
 
     initCommands() {
-    	const paths = fileutils.filePaths(__dirname + "/commands").filter(file => file.endsWith(".js"));
+    	const paths: string[] = fileutils.filePaths(__dirname + "/commands").filter((file: string) => file.endsWith(".js"));
 
     	for (const path of paths) {
     		const command = require(path);
@@ -32,12 +32,12 @@ class Setup {
 
 
     initEventListeners() {
-    	const eventPaths = fileutils.filePaths(__dirname + "/eventHandlers").filter(file => file.endsWith(".js"));
+    	const eventPaths = fileutils.filePaths(__dirname + "/eventHandlers").filter((file: string) => file.endsWith(".js"));
 
     	for (const path of eventPaths) {
     		const event = require(path);
 
-    		this.#client.on(event.id, (...args) => event.execute(...args, this.#client));
+    		this.#client.on(event.id, (...args: object[]) => event.execute(...args, this.#client));
     	}
 
     }
