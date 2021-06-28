@@ -3,6 +3,7 @@ const config = require("../../config/config.json");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 const ReactionCenter = require("../../reactionManager/ReactionCenter.js");
 const fileutils = require("../../utils/fileutils.js");
+const debug = require("debug")("DB");
 
 
 /**
@@ -42,7 +43,7 @@ class Help extends BasicCommand {
             }
         });
 
-        console.log(this.commandList);
+        debug(this.commandList);
 
 
 
@@ -52,7 +53,6 @@ class Help extends BasicCommand {
         			.setColor("ORANGE")
         		    .setFooter(`To find more about a specific command use ${config.prefix}help <command name> | ${ping} ms`)
         			.setTimestamp();
-            console.log(cmdObj);
             embed.addField(cmdObj.name, cmdObj.list.join("\n"));
 
             return embed;

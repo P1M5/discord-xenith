@@ -7,12 +7,13 @@
   "description": "Discord bot that covers all bases from useful commands to roleplay to a full-fledged card game!",
   "main": "./bot.js",
   "scripts": {
-    "start": "node ./bot.js",
-    "dev": "nodemon ./bot.js"
+    "start": "cross-env NODE_PATH=.&& node ./bot.js",
+    "dev": "cross-env NODE_PATH=.&& nodemon ./bot.js"
   },
   "author": "P1M5",
   "license": "UNLICENSED",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "debug": "^4.3.1",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",

@@ -1,5 +1,6 @@
 # Config
 .env
+package-lock.json
 
 # Editors
 .eslintrc.json
