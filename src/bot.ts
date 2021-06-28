@@ -1,10 +1,7 @@
 import { Client, Intents, Collection } from "discord.js";
-import config from "../config/config.json";
+import { Bot } from "./abstractClasses/interfaces";
+import config from "./config/config.json";
 import fileutils from "./utils/fileutils.js";
-
-interface Bot extends Client {
- commands: Collection<string, object>;
-}
 
 class Setup {
 

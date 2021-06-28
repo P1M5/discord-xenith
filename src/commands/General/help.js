@@ -1,5 +1,5 @@
 const { MessageEmbed, Collection } = require("discord.js");
-const config = require("../../../config/config.json");
+const config = require("../../config/config.json");
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 const ReactionCenter = require("../../reactionManager/reactionCenter.js");
 const fileutils = require("../../utils/fileutils.js");

@@ -1,12 +1,15 @@
-const config = require("../../config/config.json");
+import config from "../config/config.json";
+import { Bot, BasicCommand } from "../abstractClasses/interfaces";
+import { Message } from "discord.js";
 
-class Message {
+class OnMessage {
 
     static id = "message";
 
-    static execute(message) {
+    static execute(message: Message): void {
+        console.log("Hi")
+    	const client: Bot = message.client as Bot;
 
-    	const client = message.client;
     	const isPrefixTriggered = message.content.startsWith(config.prefix);
 
         if (message.author.bot) return;
@@ -64,12 +67,19 @@ class Message {
             message.reply(`yes`)
         }
 
+        let args;
 
-    	if (message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
+        if (client.user) {
+    	       if (message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
+    	       args = this.argParser(message, isPrefixTriggered, client.user.id);
+        }
 
-    	const args = this.argParser(message, isPrefixTriggered, client.user.id);
+        if (!args) return;
 
-    	const commandName = args.shift().toLowerCase();
+    	let commandName: string = args.shift()!.toLowerCase();
+
+        if (!commandName) return;
+
 
     	const msgToken = {
     		message: message,
@@ -77,8 +87,9 @@ class Message {
     		args: args.join(" "),
     	};
 
-    	const command = client.commands.get(msgToken.commandName)
-            || client.commands.find(cmd => cmd.aliases && cmd.aliases.has(msgToken.commandName));
+    	const command:BasicCommand|undefined = client.commands.get(msgToken.commandName)
+            || client.commands.find((cmd: BasicCommand): boolean => cmd.aliases && cmd.aliases.has(msgToken.commandName));
+
     	if (!command) return;
 
     	if (msgToken.message.author.id != config.owner_id &&
@@ -90,14 +101,14 @@ class Message {
     	}
     	catch (error) {
     		console.error(error);
-    		message.reply(`There was an error executing the command \`${command.name}\`, please contact the developer if the error persists.`);
+    		message.reply(`There was an error executing the command \`${command.id}\`, please contact the developer if the error persists.`);
     	}
 
     	this.memberCountUpdate(client); // Needs to be made async for now
     }
 
-    static argParser(message, isMentionTriggered, botId) {
-    	let args;
+    static argParser(message: Message, isMentionTriggered: boolean, botId: string): string[] {
+    	let args: string;
     	if(isMentionTriggered) {
     		args = message.content.slice(config.prefix.length);
     	}
@@ -109,12 +120,14 @@ class Message {
     	return args.trim().split(" ");
     }
 
-    static memberCountUpdate(client) {
+    static memberCountUpdate(client: Bot): void {
     	const servers = client.guilds.cache;
     	const membersNum = servers.reduce((x, y) => x + y.memberCount, 0);
-    	client.user.setActivity(`over ${servers.size} server/s and ${membersNum} member/s`, { type: "WATCHING" });
+        if (client.user){
+            client.user.setActivity(`over ${servers.size} server/s and ${membersNum} member/s`, { type: "WATCHING" });
+        }
     }
 
 }
 
-module.exports = Message;
+module.exports = OnMessage;

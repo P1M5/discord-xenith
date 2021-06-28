@@ -1,5 +1,5 @@
-const ReactionCenter = require("../reactionManager/reactionCenter.js");
-const { MessageEmbed } = require("discord.js");
+import ReactionCenter from "../reactionManager/reactionCenter.js";
+import { MessageReaction, User } from "discord.js";
 
 class Reaction {
     static id = "messageReactionAdd";
@@ -8,7 +8,7 @@ class Reaction {
     * If reaction is added, check if message exists in reaction center, and then
     * send the reaction to the command.
     */
-    static async execute(reaction, user) {
+    static async execute(reaction: MessageReaction, user: User): Promise<void> {
 
         if (user.bot) return;
 
@@ -20,7 +20,10 @@ class Reaction {
 
         if (!msgObj) return;
 
-        if (user.id != msgObj.userid) return reaction.users.remove(user.id);
+        if (user.id != msgObj.userid) {
+            reaction.users.remove(user.id);
+            return;
+        }
 
         reaction.users.remove(user.id);
         msgObj.command.userReaction(msgObj, reaction);
