@@ -1,5 +1,5 @@
 module.exports = {
-	name: "throw",
+	id: "throw",
 	description: "Throw someone out the window",
 	category: "Social",
 	usage: "<user id,username or mention>",

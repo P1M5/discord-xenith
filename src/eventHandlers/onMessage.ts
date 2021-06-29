@@ -1,5 +1,5 @@
 import config from "../config/config.json";
-import { Bot, BasicCommand } from "../abstractClasses/interfaces";
+import { Bot, BasicCommandInterface, MessageToken } from "../abstractClasses/interfaces";
 import { Message } from "discord.js";
 
 class OnMessage {
@@ -81,14 +81,15 @@ class OnMessage {
         if (!commandName) return;
 
 
-    	const msgToken = {
+    	const msgToken: MessageToken = {
+            user: message.author,
     		message: message,
     		commandName: commandName,
     		args: args.join(" "),
     	};
 
-    	const command:BasicCommand|undefined = client.commands.get(msgToken.commandName)
-            || client.commands.find((cmd: BasicCommand): boolean => cmd.aliases && cmd.aliases.has(msgToken.commandName));
+    	const command:BasicCommandInterface|undefined = client.commands.get(msgToken.commandName)
+            || client.commands.find((cmd: BasicCommandInterface): boolean => cmd.aliases && cmd.aliases.has(msgToken.commandName));
 
     	if (!command) return;
 

@@ -1,5 +1,6 @@
 # Config
 .env
+src/config/config.json
 package-lock.json
 
 # Compilation

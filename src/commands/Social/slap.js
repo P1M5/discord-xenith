@@ -1,5 +1,5 @@
 module.exports = {
-	name: "slap",
+	id: "slap",
 	description: "Slap someone",
 	category: "Social",
 	usage: "<user id,username or mention>",
