@@ -1,11 +1,6 @@
 <h1> Project Xenith </h1>
 Not just an average Discord bot.
 
-## DEPRECATED as of 6.06.23
-Due to multiple updates of the main dependency discord.js, the bot can no longer function as intended:
-  - very limited command responses due to the introduction of slash commands and a change in the way discordjs handles messages
-That being said, some commands like help and ping and the bot's status still function and the bot can be brought online. If one intends to revive the bot they are free to do so, but it will most likely require a complete rewrite of the message handling.
-
 ## Prerequisites
 NodeJs is needed to run the code
 
