@@ -47,8 +47,13 @@ class ReactionCenter {
         this.liveMessages.set(msgObj.messageid, msgObj)
 
         msgObj.timeout = setTimeout(() => {
-            msgObj.message.edit(new MessageEmbed().addField("Query has timed out puss"));
+            msgObj.message.edit(new MessageEmbed()
+            .addField("Commands List","Query has timed out.")
+            .setColor("PURPLE")
+            .setFooter(`${msgObj.message.client.ws.ping} ms`)
+        	.setTimestamp());
             this.liveMessages.delete(msgObj.messageid);
+            msgObj.message.reactions.removeAll();
         }, timeAlive);
 
     }
@@ -64,8 +69,13 @@ class ReactionCenter {
         msgObj.message.edit(msgObj.commandObject.content)
 
         msgObj.timeout = setTimeout(() => {
-            msgObj.message.edit(new MessageEmbed().addField("Query has timed out puss"));
+            msgObj.message.edit(new MessageEmbed()
+            .addField("Commands List","Query has timed out.")
+            .setColor("PURPLE")
+            .setFooter(`${msgObj.message.client.ws.ping} ms`)
+        	.setTimestamp());
             this.liveMessages.delete(msgObj.messageid);
+            msgObj.message.reactions.removeAll();
         }, msgObj.timeAlive);
     }
 

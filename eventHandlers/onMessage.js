@@ -8,6 +8,8 @@ class Message {
   static execute(message) {
 
       const client = message.client;
+      console.log(process.env.prefix);
+      console.log(message.content);
       const isPrefixTriggered = message.content.startsWith(process.env.prefix);
       if(message.author.bot || !(isPrefixTriggered || message.mentions.has(client.user.id))) return;
 

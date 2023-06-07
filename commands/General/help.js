@@ -1,5 +1,5 @@
 const { MessageEmbed, Collection } = require("discord.js");
-const config = require("../../config/config.json");
+const dotenv = require("dotenv").config();
 const { BasicCommand } = require("../../abstractClasses/BasicCommand.js");
 const ReactionCenter = require("../../reactionManager/ReactionCenter.js");
 const fileutils = require("../../utils/fileutils.js");
@@ -50,8 +50,8 @@ class Help extends BasicCommand {
         this.helpmsg = Array.from(this.commandList.values()).map((cmdObj) => {
             const embed = new MessageEmbed()
         			.setTitle("Commands List")
-        			.setColor("ORANGE")
-        		    .setFooter(`To find more about a specific command use ${config.prefix}help <command name> | ${ping} ms`)
+        			.setColor("PURPLE")
+        		    .setFooter(`To find more about a specific command use ${process.env.prefix}help <command name> | ${ping} ms`)
         			.setTimestamp();
             embed.addField(cmdObj.name, cmdObj.list.join("\n"));
 
@@ -69,6 +69,9 @@ class Help extends BasicCommand {
 
         ReactionCenter.initializeNewMessage(userid, msgToken.message.channel, commandObj, reactions, this);
 
+		// OLD REACTIONLESS BASED HELP COMMAND
+		//
+		//
     	// if (!msgToken.args) {
         //
     	// 	commands.filter(Boolean);
