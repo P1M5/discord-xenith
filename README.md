@@ -1,6 +1,11 @@
 <h1> Project Xenith </h1>
 Not just an average Discord bot.
 
+## The bot in action
+
+![](https://github.com/P1M5/discord-xenith/blob/margin/example1.gif)
+![](https://github.com/P1M5/discord-xenith/blob/margin/example2.gif)
+
 ## Prerequisites
 NodeJs is needed to run the code
 
